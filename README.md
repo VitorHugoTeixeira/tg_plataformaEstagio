@@ -6,29 +6,21 @@ Primeiro, inicie o servidor com os comandos abaio:
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
 ```
+Abra [http://localhost:3000](http://localhost:3000) com o seu navegador para ver o resultado.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## O projeto
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+O sistema foi pensado para facilitar a verificação da documentação que faz parte do processo de estágio nas faculdades de nosso país. Com isso em mente, nosso site visa armazenar os cadastros de diversos alunos para auxiliá-los a preencher a documentação junto com os seus gestores e professores. O documento será visível para o aluno, o gestor da empresa e também o professor responsável por gerir o estágio na faculdade.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Fontes e tecnologias utilizadas no projeto
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Veja mais sobre o NextJS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Para ver mais sobre o NextJs clique nos links abaixo:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Next.js Documentation](https://nextjs.org/docs).

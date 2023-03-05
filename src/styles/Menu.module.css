@@ -1,6 +1,305 @@
-.menu{
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.menu {
+    width: 100%;
+    position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #004E89;
+    padding: 10px;
 }
+
+.menuDivImg img {
+    width: 100%;
+    height: auto;
+    transition: 500ms linear;
+}
+
+.menuDivNavbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menuNav .menuList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menuListItem{
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.2em;
+    color: #fff;
+    padding: 15px;
+}
+
+.menuListItem:hover{
+    color: #FF6B35;
+}
+
+.menuListItem:active{
+    font-size: 1.1em;
+}
+
+
+.menuDivLoginCadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 28px;
+}
+
+.menuLoginButton{
+    background-color: #FF6B35;
+    color: #fff;
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1em;
+    padding: 8px 50px 8px 50px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.menuLoginButton:hover{
+    background-color: #d3592d;
+}
+
+.menuDropdown{
+    background-color: #004E89;
+    color: #fff;
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1em;
+    padding: 4px 35px 4px 35px;
+    border: solid 2px #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 10px; 
+}
+
+.menuDropdown:hover{
+    background-color: #014172;
+}
+
+.menuDropdownContent{
+    position: absolute;
+    display: none;
+    width: 135px;
+    overflow: auto;
+    margin: 4px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.menuDivCadastro:hover .menuDropdownContent {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 15px;
+    transition: 5s linear;
+}
+
+.menuDivCadastro span{
+    align-self: flex-start;
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1em;
+    width: 100%;
+    border-bottom: .5px solid #000;
+    padding: 5px;
+}
+
+.menuDivCadastro span:hover{
+    color: #424040;
+}
+
+
+/* Menu Mobile */
+.menuDivContentMobile{
+    display: none;
+    width: 100%;
+}
+
+.menuDivIconMobile{
+    display: none;
+}
+
+.menuMobile {
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px;
+    background-color: #004E89;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.closeIcon{
+    cursor: pointer;
+    margin: 10px 0px 10px 0px;
+    align-self: flex-end    ;
+}
+
+.menuDivImgMobile {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px 10px 0px;
+}
+
+.menuDivImgMobile img {
+    width: 100%;
+    transition: 500ms linear;
+}
+
+.menuListMobile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px 0px 10px 0px;
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.2em;
+    color: #fff;
+}
+
+.menuListItemMobile{
+    padding: 5px;
+}
+
+.menuListItemMobile:hover{
+    color: #FF6B35;
+}
+
+.menuListItemMobile:active{
+    font-size: 1.1em;
+}
+
+.menuDivLoginCadastroMobile{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.menuDivCadastroMobile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 28px;
+    padding: 0px;
+}
+
+.menuDropdownMobile{
+    background-color: #004E89;
+    color: #fff;
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1em;
+    padding: 4px 35px 4px 35px;
+    border: solid 2px #fff;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.menuDropdownContentMobile{
+    position: absolute;
+    display: none;
+    width: 135px;
+    overflow: auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    top: -87px
+}
+
+.menuDivCadastroMobile:hover .menuDropdownContentMobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 155px;
+    background-color: #fff;
+    border-radius: 15px;
+    transition: 5s linear;
+}
+
+.menuDivCadastroMobile span{
+    align-self: flex-start;
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1em;
+    width: 100%;
+    border-bottom: .5px solid #000;
+    padding: 5px;
+}
+
+.menuDivCadastroMobile span:hover{
+    color: #424040;
+}
+
+.menuLoginButtonMobile{
+    background-color: #FF6B35;
+    color: #fff;
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1em;
+    padding: 6px 50px 6px 50px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.menuLoginButtonMobile:hover{
+    background-color: #d3592d;
+}
+
+.menuDropdownMobile:hover{
+    background-color: #014172;
+}
+
+
+
+
+@media(max-width: 1050px) {
+    
+    .menuDivContentMobile{
+        display: block;
+    }
+
+    .menuDivIconMobile {
+        display: flex;
+    }
+
+    .menuDivLoginCadastro{
+        display: none;
+    }
+
+    .menuDivNavbar{
+        display: none;
+    }
+
+    .menuDivImg img {
+        width: 55%;
+    }
+    
+    .menuMobile{
+        display: none;
+    }
+}
+
+
+
