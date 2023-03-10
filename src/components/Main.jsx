@@ -17,6 +17,13 @@ const Main = () => {
                             </div>
                         </div>
                     </div>
+                    <section className={styles.mainSaibaMais}>
+                        <h2 className={styles.mainTituloVerMais}>O que acham de nós?</h2>
+                        <h3 className={styles.mainSubtituloVerMais}>Um site que facilita a gestão de estágios em sua instituiçao, integrando de forma digital a documentação necessária para a conclusão dessa etapa importante.</h3>
+                        <div className={styles.mainDivBotaoVerMais}>
+                            <a className={styles.mainBotaoVerMais} href="">Ver Mais</a>
+                        </div>
+                    </section>
                 </article>
             </main>
         </>

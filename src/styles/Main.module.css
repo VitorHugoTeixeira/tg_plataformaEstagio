@@ -16,13 +16,14 @@
     transition: 500ms linear;
 }
 
-.mainDescricao{
+.mainDescricao {
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 70%;
+    margin-top: 20px;
 }
 
 .mainTitulo {
@@ -35,7 +36,7 @@
 }
 
 .mainSubtitulo {
-    width: 70%;
+    width: 65%;
     font-family: 'Barlow';
     font-style: normal;
     font-weight: 700;
@@ -45,7 +46,7 @@
     text-align: center;
 }
 
-.mainDivisaoLinkDetalhes{
+.mainDivisaoLinkDetalhes {
     display: flex;
     justify-content: center;
     margin: 10px 0px 0px 0px;
@@ -63,10 +64,69 @@
     font-size: 2vw
 }
 
-.mainLinkDetalhes:hover{
+.mainLinkDetalhes:hover {
     background-color: #d3592d;
 }
 
 .mainImagem {
     width: 100%;
+}
+
+.mainSaibaMais {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 30%;
+    background-color: #FF6B35;
+    padding: 28px;
+}
+
+.mainTituloVerMais {
+    font-family: 'Barlow';
+    font-size: 2.5vw;
+    font-weight: 700;
+    color: white;
+    margin-top: 20px;
+    margin-left: 5%;
+}
+
+.mainSubtituloVerMais {
+    font-family: 'Source Serif Pro';
+    font-weight: 200;
+    font-size: 2vw;
+    color: #FFFFFF;
+    width: 70%;
+    margin: 10px 0px 20px 5%;
+}
+
+.mainDivBotaoVerMais{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    align-self: flex-end;
+    margin-top: 5%;
+    margin-right: 5%;
+    color: #FFFFFF;
+    border: 2px solid #fff;
+    padding: 5px calc(15px + 1.5625vw) 5px calc(15px + 1.5625vw);
+    border-radius: 30px;
+}
+
+.mainBotaoVerMais{
+    font-size: 2vw;
+}
+
+@media(max-width: 600px){
+    .mainSubtituloVerMais {
+        width: 70%;
+    }
+    
+    .mainDivBotaoVerMais{
+        margin-top: 25%;
+        transition: 500ms linear;
+    }
+    
 }
