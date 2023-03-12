@@ -65,40 +65,39 @@ export default function Menu(props) {
             </div>
 
             {/* Menu Mobile */}
-            <div className={styles.menuDivContentMobile}>
-                <div className={styles.menuMobile} style={{ display: mobile }}>
-                    <span className={styles.closeIcon} onClick={alteraVisibilidadeMenu}>{iconClose}</span>
-                    <div className={styles.menuDivImgMobile}>
-                        <img src="/assets/imagens/logo.png" alt="Imagem com o logo do site, nessa imagem temos o nome do projeto: Plataforma de Estágio" />
-                    </div>
-                    <div className={styles.menuNavMobile}>
-                        <ul className={styles.menuListMobile}>
-                            <li className={styles.menuListItemMobile}><a href="">Home</a></li>
-                            <li className={styles.menuListItemMobile}><a href="">Contato</a></li>
-                            <li className={styles.menuListItemMobile}><a href="">Sobre Nós</a></li>
-                            <li className={styles.menuListItemMobile}><a href="">Termos de Uso</a></li>
-                        </ul>
-                    </div>
-                    <div className={styles.menuDivLoginCadastroMobile}>
-                        <div className={styles.menuDivCadastroMobile}>
-                            <button className={styles.menuDropdownMobile}>Cadastrar</button>
-                            <div className={styles.menuDropdownContentMobile}>
-                                <span>
-                                    <a className={styles.dropdownListItemMobile} href="">Empresa</a>
-                                </span>
-                                <span>
-                                    <a className={styles.dropdownListItemMobile} href="">Aluno</a>
-                                </span>
-                                <span>
-                                    <a className={styles.dropdownListItemMobile} href="">Faculdade</a>
-                                </span>
-                                <span style={{ border: 'none' }}>
-                                    <a className={styles.dropdownListItemMobile} href="">Orientador</a>
-                                </span>
-                            </div>
+
+            <div className={styles.menuMobile} style={{ display: mobile }}>
+                <span className={styles.closeIcon} onClick={alteraVisibilidadeMenu}>{iconClose}</span>
+                <div className={styles.menuDivImgMobile}>
+                    <img src="/assets/imagens/logo.png" alt="Imagem com o logo do site, nessa imagem temos o nome do projeto: Plataforma de Estágio" />
+                </div>
+                <div className={styles.menuNavMobile}>
+                    <ul className={styles.menuListMobile}>
+                        <li className={styles.menuListItemMobile}><a href="">Home</a></li>
+                        <li className={styles.menuListItemMobile}><a href="">Contato</a></li>
+                        <li className={styles.menuListItemMobile}><a href="">Sobre Nós</a></li>
+                        <li className={styles.menuListItemMobile}><a href="">Termos de Uso</a></li>
+                    </ul>
+                </div>
+                <div className={styles.menuDivLoginCadastroMobile}>
+                    <div className={styles.menuDivCadastroMobile}>
+                        <button className={styles.menuDropdownMobile}>Cadastrar</button>
+                        <div className={styles.menuDropdownContentMobile}>
+                            <span>
+                                <a className={styles.dropdownListItemMobile} href="">Empresa</a>
+                            </span>
+                            <span>
+                                <a className={styles.dropdownListItemMobile} href="">Aluno</a>
+                            </span>
+                            <span>
+                                <a className={styles.dropdownListItemMobile} href="">Faculdade</a>
+                            </span>
+                            <span style={{ border: 'none' }}>
+                                <a className={styles.dropdownListItemMobile} href="">Orientador</a>
+                            </span>
                         </div>
-                        <a href="" className={styles.menuLoginButtonMobile}>Login</a>
                     </div>
+                    <a href="" className={styles.menuLoginButtonMobile}>Login</a>
                 </div>
             </div>
 

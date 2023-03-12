@@ -19,13 +19,13 @@
     align-items: center;
 }
 
-.menuNav .menuList{
+.menuNav .menuList {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.menuListItem{
+.menuListItem {
     font-family: 'Barlow';
     font-style: normal;
     font-weight: 700;
@@ -34,11 +34,11 @@
     padding: 15px;
 }
 
-.menuListItem:hover{
+.menuListItem:hover {
     color: #FF6B35;
 }
 
-.menuListItem:active{
+.menuListItem:active {
     font-size: 1.6vw;
 }
 
@@ -50,7 +50,7 @@
     margin-right: 28px;
 }
 
-.menuLoginButton{
+.menuLoginButton {
     background-color: #FF6B35;
     color: #fff;
     font-family: 'Barlow';
@@ -62,11 +62,11 @@
     cursor: pointer;
 }
 
-.menuLoginButton:hover{
+.menuLoginButton:hover {
     background-color: #d3592d;
 }
 
-.menuDropdown{
+.menuDropdown {
     background-color: #004E89;
     color: #fff;
     font-family: 'Barlow';
@@ -77,14 +77,14 @@
     border: solid 2px #fff;
     border-radius: 20px;
     cursor: pointer;
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
-.menuDropdown:hover{
+.menuDropdown:hover {
     background-color: #014172;
 }
 
-.menuDropdownContent{
+.menuDropdownContent {
     position: absolute;
     display: none;
     width: 135px;
@@ -104,7 +104,7 @@
     transition: 5s linear;
 }
 
-.menuDivCadastro span{
+.menuDivCadastro span {
     align-self: flex-start;
     font-family: 'Barlow';
     font-style: normal;
@@ -115,18 +115,14 @@
     padding: 5px;
 }
 
-.menuDivCadastro span:hover{
+.menuDivCadastro span:hover {
     color: #424040;
 }
 
 
 /* Menu Mobile */
-.menuDivContentMobile{
-    display: none;
-    width: 100%;
-}
 
-.menuDivIconMobile{
+.menuDivIconMobile {
     display: none;
 }
 
@@ -140,13 +136,13 @@
     padding: 15px;
     background-color: #004E89;
     width: 100%;
-    height: 100vh;
+    height: 2000px;
 }
 
-.closeIcon{
+.closeIcon {
     cursor: pointer;
     margin: 10px 0px 10px 0px;
-    align-self: flex-end    ;
+    align-self: flex-end;
 }
 
 .menuDivImgMobile {
@@ -172,25 +168,25 @@
     color: #fff;
 }
 
-.menuListItemMobile{
+.menuListItemMobile {
     padding: 5px;
 }
 
-.menuListItemMobile:hover{
+.menuListItemMobile:hover {
     color: #FF6B35;
 }
 
-.menuListItemMobile:active{
+.menuListItemMobile:active {
     font-size: 1.1em;
 }
 
-.menuDivLoginCadastroMobile{
+.menuDivLoginCadastroMobile {
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
-.menuDivCadastroMobile{
+.menuDivCadastroMobile {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -199,7 +195,7 @@
     padding: 0px;
 }
 
-.menuDropdownMobile{
+.menuDropdownMobile {
     background-color: #004E89;
     color: #fff;
     font-family: 'Barlow';
@@ -212,7 +208,7 @@
     cursor: pointer;
 }
 
-.menuDropdownContentMobile{
+.menuDropdownContentMobile {
     position: absolute;
     display: none;
     width: 135px;
@@ -232,7 +228,7 @@
     transition: 5s linear;
 }
 
-.menuDivCadastroMobile span{
+.menuDivCadastroMobile span {
     align-self: flex-start;
     font-family: 'Barlow';
     font-style: normal;
@@ -243,11 +239,11 @@
     padding: 5px;
 }
 
-.menuDivCadastroMobile span:hover{
+.menuDivCadastroMobile span:hover {
     color: #424040;
 }
 
-.menuLoginButtonMobile{
+.menuLoginButtonMobile {
     background-color: #FF6B35;
     color: #fff;
     font-family: 'Barlow';
@@ -260,40 +256,32 @@
     margin-top: 10px;
 }
 
-.menuLoginButtonMobile:hover{
+.menuLoginButtonMobile:hover {
     background-color: #d3592d;
 }
 
-.menuDropdownMobile:hover{
+.menuDropdownMobile:hover {
     background-color: #014172;
 }
 
 @media(max-width: 1050px) {
-    
-    .menuDivContentMobile{
-        display: block;
-    }
-
-    .menuDivIconMobile {
+  .menuDivIconMobile {
         display: flex;
     }
 
-    .menuDivLoginCadastro{
+    .menuDivLoginCadastro {
         display: none;
     }
 
-    .menuDivNavbar{
+    .menuDivNavbar {
         display: none;
     }
 
     .menuDivImg img {
         width: 55%;
     }
-    
-    .menuMobile{
+
+    .menuMobile {
         display: none;
     }
 }
-
-
-
