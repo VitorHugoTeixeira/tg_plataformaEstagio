@@ -110,7 +110,7 @@
     border-radius: 30px;
 }
 
-.mainDivBotaoVerMais:hover{
+.mainDivBotaoVerMais:hover {
     background-color: #f06633;
     cursor: pointer;
 }
@@ -137,12 +137,13 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: calc(250px + 1.5625vw);
+    width: calc(400px + 1.5625vw);
     padding: 28px;
-    border: 1px solid #000
+    border: 1px solid #000;
+    background-color: #ECE8E8;
 }
 
-.mainCardServicosTitle{
+.mainCardServicosTitle {
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -157,6 +158,69 @@
     margin-top: 10px
 }
 
+.mainTituloOpiniao {
+    font-family: 'Barlow';
+    font-weight: 'bold';
+    text-align: center;
+    margin: 80px 0px;
+}
+
+.mainOpinioes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.mainGroupCriadores {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+    margin: 40px 0px;
+    padding: 15px;
+}
+
+.mainImagemCriador {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.mainNome {
+    align-self: flex-start;
+    color: #004E89;
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    line-height: 38px;
+    text-align: center;
+}
+
+.mainIdade {
+    align-self: flex-start;
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    line-height: 103px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.mainApresentacao {
+    font-family: 'Source Serif Pro';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    color: #000000;
+
+}
+
+
 @media(max-width: 1200px) {
     .mainGroupCardServicos {
         flex-direction: column;
@@ -167,6 +231,11 @@
     .mainCardServicos {
         padding: 28px;
         margin: 15px;
+    }
+
+    .mainGroupCriadores {
+        width: 80%;
+        transition: ease-out;
     }
 }
 
@@ -183,5 +252,19 @@
 
     .mainSubtituloVerMais {
         width: 90%;
+    }
+}
+
+
+@media(max-width: 500px) {
+
+    .mainGroupCardServicos {
+        flex-direction: column;
+        transition: 500ms ease-in-out;
+        width: 100%;
+    }
+
+    .mainCardServicos {
+        width: calc(200px + 1.5625vw);
     }
 }

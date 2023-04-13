@@ -9,7 +9,7 @@ const Main = () => {
             <main className={styles.mainBackground}>
                 <article>
                     <div className={styles.mainPainelPrincipal}>
-                        <img className={styles.mainImagem} src="/assets/imagens/background-image.png" alt="" />
+                        <img className={styles.mainImagem} src="/assets/imagens/background-image.png" alt="Iamgem de um estudante usada como bakground de apresentação" />
                         <div className={styles.mainDescricao}>
                             <h2 className={styles.mainTitulo}>Plataforma digital para estágio!</h2>
                             <h1 className={styles.mainSubtitulo}>Documentação online para facilitar o seu estágio</h1>
@@ -20,8 +20,8 @@ const Main = () => {
                     </div>
                     <section className={`${styles.mainSaibaMais}`}>
                         <h2 className={`${styles.mainTituloVerMais} lg:text-4xl sm:text-2xl font-bold`}>O que acham de nós?</h2>
-                        <h3 className={`${styles.mainSubtituloVerMais } lg:text-3xl sm:text-1xl font-light`}>Um site que facilita a gestão de estágios em sua instituiçao, integrando de forma digital a documentação necessária para a conclusão dessa etapa importante.</h3>
-                        <div className={`${styles.mainDivBotaoVerMais} lg:text-2xl sm:text-1xl font-light`}>
+                        <h3 className={`${styles.mainSubtituloVerMais} lg:text-3xl sm:text-1xl font-light`}>Um site que facilita a gestão de estágios em sua instituiçao, integrando de forma digital a documentação necessária para a conclusão dessa etapa importante.</h3>
+                        <div className={`${styles.mainDivBotaoVerMais} lg:text-2xl sm:text-1xl font-bold`}>
                             <a className={styles.mainBotaoVerMais} href="">Ver Mais</a>
                         </div>
                     </section>
@@ -58,6 +58,33 @@ const Main = () => {
                             <h3 className={`${styles.mainIconTitulo} text-1xl font-bold`}>Configurações</h3>
                         </div>
                     </div>
+                    <section className={styles.mainOpinioes}>
+                        <h3 className={`${styles.mainTituloOpiniao} text-4xl font-bold`}>Criadores da Plataforma de Estágio</h3>
+                        <div className={styles.mainGroupCriadores}>
+                            <img className={styles.mainImagemCriador} src="/assets/imagens/background-image.png" alt="Imagem do primeiro criador do projeto" />
+                            <h3 className={`${styles.mainNome} text-3xl font-bold`}>Nicolly Costa</h3>
+                            <h4 className={`${styles.mainIdade} text-6xl font-bold`}>22 anos</h4>
+                            <p className={`${styles.mainApresentacao} text-xl font-bold`}>Um sistema com uma personalidade incrivel! Quando comecei a estagiar estava preocupada náo só com o estágio mas também em como me organizar para conseguir entregar as documentacões no tempo certo, com a paltaforma de estágio consegui concluir o estágio sem mais preocupacões.</p>
+                        </div>
+                        <div className={styles.mainGroupCriadores}>
+                            <img className={styles.mainImagemCriador} src="/assets/imagens/background-image.png" alt="Imagem do primeiro criador do projeto" />
+                            <h3 className={`${styles.mainNome} text-3xl font-bold`}>Douglas Santos</h3>
+                            <h4 className={`${styles.mainIdade} text-6xl font-bold`}>22 anos</h4>
+                            <p className={`${styles.mainApresentacao} text-xl font-bold`}>Um sistema com uma personalidade incrivel! Quando comecei a estagiar estava preocupada náo só com o estágio mas também em como me organizar para conseguir entregar as documentacões no tempo certo, com a paltaforma de estágio consegui concluir o estágio sem mais preocupacões.</p>
+                        </div>
+                        <div className={styles.mainGroupCriadores}>
+                            <img className={styles.mainImagemCriador} src="/assets/imagens/background-image.png" alt="Imagem do primeiro criador do projeto" />
+                            <h3 className={`${styles.mainNome} text-3xl font-bold`}>Vitor Oliveira</h3>
+                            <h4 className={`${styles.mainIdade} text-6xl font-bold`}>22 anos</h4>
+                            <p className={`${styles.mainApresentacao} text-xl font-bold`}>Um sistema com uma personalidade incrivel! Quando comecei a estagiar estava preocupada náo só com o estágio mas também em como me organizar para conseguir entregar as documentacões no tempo certo, com a paltaforma de estágio consegui concluir o estágio sem mais preocupacões.</p>
+                        </div>
+                        <div className={styles.mainGroupCriadores}>
+                            <img className={styles.mainImagemCriador} src="/assets/imagens/background-image.png" alt="Imagem do primeiro criador do projeto" />
+                            <h3 className={`${styles.mainNome} text-3xl font-bold`}>Wesley Gomes</h3>
+                            <h4 className={`${styles.mainIdade} text-6xl font-bold`}>22 anos</h4>
+                            <p className={`${styles.mainApresentacao} text-xl font-bold`}>Um sistema com uma personalidade incrivel! Quando comecei a estagiar estava preocupada náo só com o estágio mas também em como me organizar para conseguir entregar as documentacões no tempo certo, com a paltaforma de estágio consegui concluir o estágio sem mais preocupacões.</p>
+                        </div>
+                    </section>
                 </section>
             </main>
         </>
