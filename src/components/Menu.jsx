@@ -23,7 +23,7 @@ export default function Menu(props) {
 
     return (
         <>
-            <div className={styles.menu} style={{ display: desktop }}>
+            <div className={styles.menu} style={{ display: desktop}}>
                 <div className={styles.menuDivImg}>
                     <img src="/assets/imagens/logo.png" alt="Imagem com o logo do site, nessa imagem temos o nome do projeto: Plataforma de Estágio" />
                 </div>

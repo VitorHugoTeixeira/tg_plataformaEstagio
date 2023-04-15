@@ -1,0 +1,69 @@
+.loginMain {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 70%;
+    height: 50%;
+}
+
+.loginTitulo {
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    font-weight: bold;
+    line-height: 48px;
+    color: #000000;
+}
+
+.loginSubtitulo{
+    margin-bottom: 40px;
+}
+
+.loginTituloInput {
+    margin-top: 20px;
+    width:  70%;
+}
+
+.loginButton{
+    margin-top: 20px;
+    width: 30%;
+    background-color: #FF6B35;
+    color: #fff;
+    font-family: "Barlow";
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+@media(max-width: 1200px) {
+
+    .loginButton{
+        width: 70%;
+    }
+
+    .loginTituloInput {
+        width:  100%;
+    }
+
+    .loginTituloInput {
+        width:  100%;
+    }
+
+    .loginGroup {
+        width: 100%;
+        height: 50%;
+    }
+
+    .mainCardServicos {
+        width: calc(200px + 1.5625vw);
+    }
+}

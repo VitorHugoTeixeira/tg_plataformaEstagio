@@ -24,4 +24,14 @@ className={`${styles.iconFilter} w-20 h-20`}/>
 export const iconGear = <img src="./assets/imagens/gearIcon.svg" alt="Icone de Engrenagem" 
 className={`${styles.iconGear} w-20 h-20`}/>
 
+export const iconTwitter = <img src="./assets/imagens/twitterIcon.png" alt="Icone de Twitter" 
+className={`${styles.iconGear} w-15 h-15`}/>
+
+export const iconFacebook = <img src="./assets/imagens/facebookIcon.png" alt="Icone de Facebook" 
+className={`${styles.iconGear} w-15 h-15`}/>
+
+export const iconInstagram = <img src="./assets/imagens/instagramIcon.png" alt="Icone de Instagram" 
+className={`${styles.iconGear} w-15 h-15`}/>
+
+
 
