@@ -6,11 +6,12 @@ import Login from '../components/Login'
 import CadastroAluno from '../components/CadastroAluno'
 import CadastroEmpresa from '../components/CadastroEmpresa'
 import CadastroOrientador from '../components/CadastroOrientador'
+import CadastroFaculdade from '../components/CadastroFaculdade'
 
 export default function Home() {
   return (
     <>
-      <CadastroOrientador />
+      <CadastroFaculdade />
     </>
   )
 }
