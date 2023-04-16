@@ -1,7 +1,7 @@
 import Footer from "./Footer"
 import * as React from 'react';
 import Menu from "./Menu"
-import styles from "../styles/CadastroAluno.module.css"
+import styles from "../styles/CadastroEmpresa.module.css"
 import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl } from '@mui/material';
 import '@emotion/react';
 import InputMask from "react-input-mask"
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { faculdades, cursos, periodo, semestre } from "./data/DataSelect";
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
-const CadastroAluno = (props) => {
+const CadastroEmpresa = (props) => {
     const [data, setData] = useState()
     const [showPassword, setShowPassword] = React.useState(true);
 
@@ -28,140 +28,101 @@ const CadastroAluno = (props) => {
                     marginBottom: 100
                 }}
                 noValidate
-                autoComplete="Off"> 
-                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>Cadastro do Aluno</h1>
+                autoComplete="Off">
+                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>Cadastro da Empresa</h1>
+                <InputMask mask="99.999.999/9999-99" value={props.value} onChange={props.onChange}>
+                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CNPJ" required />}
+                </InputMask>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Nome Completo"
-                    placeholder="Digite seu nome completo"
+                    label="Razão Social"
+                    placeholder="Digite a sua Razão Social"
+                    variant="standard"
+                >
+                </TextField>
+                <TextField
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    label="Nome Fantasia"
+                    placeholder="Digite o seu Nome Fantasia"
                     variant="standard"
                 >
                 </TextField>
                 <InputMask mask="99/99/9999" value={props.value} onChange={props.onChange}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Data de Nascimento" required />}
+                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Data de Abertura" required />}
                 </InputMask>
-                <InputMask mask="999.999.999-99" value={props.value} onChange={props.onChange}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CPF" required />}
-                </InputMask>
-                <InputMask mask="99.999.999-9" value={props.value} onChange={props.onChange}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="RG" required />}
-                </InputMask>
+                <TextField
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    label="Ramo de Atividade"
+                    placeholder="Digite seu Ramo de Atividade"
+                    variant="standard"
+                >
+                </TextField>
+                <TextField
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    label="Porte da Empresa"
+                    placeholder="Digite o Porte da Empresa"
+                    variant="standard"
+                >
+                </TextField>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
                     label="Logradouro"
-                    placeholder="Rua Adonis Creed"
+                    placeholder="Digite o seu Endereço"
                     variant="standard"
                 >
                 </TextField>
-                <div className="w-6/12 flex justify-between items-center flex-col xl:w-4/12 lg:w-6/12 xl:flex-row lg:flex-col md:flex-col sw:flex-col">
-                    <TextField className="w-full mt-8 xl:w-4/12 sm:mt-8"
-                        required
-                        label="Número"
-                        placeholder="213"
-                        variant="standard"
-                        type="number"
-                    >
-                    </TextField>
-                    <TextField className="w-full mt-8 xl:w-7/12 sm:mt-8"
-                        required
-                        label="Bairro"
-                        placeholder="Jardim Flora"
-                        variant="standard"
-                    >
-                    </TextField>
-                </div>
-                <div className="w-6/12 flex justify-between items-center flex-col xl:w-4/12 lg:w-6/12 xl:flex-row lg:flex-col md:flex-col sw:flex-col">
-                    <TextField className="w-full mt-8 xl:w-4/12 sm:mt-8"
-                        required
-                        label="Cidade"
-                        placeholder="Rio de Janeiro"
-                        variant="standard"
-                    >
-                    </TextField>
-                    <TextField className="w-full mt-8 xl:w-7/12 sm:mt-8"
-                        required
-                        label="Estado"
-                        placeholder="Bahia"
-                        variant="standard"
-                    >
-                    </TextField>
-                </div>
+                <TextField
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    label="Número"
+                    placeholder="Digite o Número da Residência"
+                    variant="standard"
+                >
+                </TextField>
+                <TextField
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    label="Bairro"
+                    placeholder="Digite o seu Bairro"
+                    variant="standard"
+                >
+                </TextField>
+                <TextField
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    label="Cidade"
+                    placeholder="Digite a sua Cidade"
+                    variant="standard"
+                >
+                </TextField>
+                <InputMask mask="99999-999" value={props.value} onChange={props.onChange}>
+                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CEP" required />}
+                </InputMask>
+                <TextField
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    label="Estado"
+                    placeholder="Digite o seu Estado"
+                    variant="standard"
+                >
+                </TextField>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
                     label="E-mail"
-                    placeholder="adonis@gmail.com   "
+                    placeholder="Digite o seu e-mail"
                     variant="standard"
                     type="email"
                 >
                 </TextField>
-                <TextField
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    label="Registro"
-                    placeholder="9812739127"
-                    variant="standard"
-                    type="number"
-                >
-                </TextField>
-                <TextField
-                    select
-                    label="Instuição de Ensino"
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    variant="standard"
-
-                >
-                    {faculdades.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    select
-                    label="Curso"
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    variant="standard"
-
-                >
-                    {cursos.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    select
-                    label="Período"
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    variant="standard"
-
-                >
-                    {periodo.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    select
-                    label="Semestre"
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    variant="standard"
-
-                >
-                    {semestre.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
-                </TextField>
+                <InputMask mask="(99) 99999-9999" value={props.value} onChange={props.onChange}>
+                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Celular" required />}
+                </InputMask>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
@@ -219,4 +180,4 @@ const CadastroAluno = (props) => {
     )
 }
 
-export default CadastroAluno
+export default CadastroEmpresa
