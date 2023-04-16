@@ -34,14 +34,17 @@
 }
 
 .loginButton{
-    margin-top: 20px;
+    margin: 50px;
     width: 30%;
     background-color: #FF6B35;
     color: #fff;
     font-family: "Barlow";
-    font-weight: bold;
     padding: 10px;
     border-radius: 30px;
+}
+
+.loginButton:hover{
+    background-color: #f85114;
 }
 
 @media(max-width: 1200px) {

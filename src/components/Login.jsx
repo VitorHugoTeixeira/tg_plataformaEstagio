@@ -23,7 +23,6 @@ const Login = () => {
                 <div className={styles.loginGroup}>
                     <h1 className={`${styles.loginTitulo} text-3xl font-bold`}>Login</h1>
                     <h3 className={`${styles.loginSubtitulo} text-md font-thin`}>Seja Bem-Vindo ao nosso portal estágios</h3>
-
                     <FormControl sx={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -78,7 +77,7 @@ const Login = () => {
                                 </InputAdornment>
                             }
                         />
-                        <button className={`${styles.loginButton} text-xl`}>Enviar</button>
+                        <Button className={`${styles.loginButton} text-xl`}>Enviar</Button>
                 </FormControl>
             </div>
         </main >

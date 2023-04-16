@@ -1,0 +1,17 @@
+.cadastroTitulo{
+    font-family: 'Barlow';
+}
+
+.cadastroBotao{
+    margin: 50px;
+    width: 20%;
+    background-color: #FF6B35;
+    color: #fff;
+    font-family: "Barlow";
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.cadastroBotao:hover{
+    background-color: #f85114;
+}
