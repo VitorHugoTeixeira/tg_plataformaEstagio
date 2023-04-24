@@ -1,0 +1,22 @@
+.contatoBotaoEnviar{
+    margin: 50px;
+    width: 150px;
+    background-color: #FF6B35;
+    color: #fff;
+    font-family: "Barlow";
+    padding: 10px;
+    border-radius: 30px;
+    align-self: flex-end;
+}
+
+.contatoBotaoEnviar:hover{
+    background-color: #f85114;
+}
+
+.contatoTitulo{
+    font-family: 'Barlow';
+}
+
+.contatoTextoCheckBox{
+    font-family: 'Barlow';
+}

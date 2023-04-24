@@ -7,11 +7,12 @@ import CadastroAluno from '../components/CadastroAluno'
 import CadastroEmpresa from '../components/CadastroEmpresa'
 import CadastroOrientador from '../components/CadastroOrientador'
 import CadastroFaculdade from '../components/CadastroFaculdade'
+import Contato from '../components/Contato'
 
 export default function Home() {
   return (
     <>
-      <CadastroFaculdade />
+      <Contato />
     </>
   )
 }

@@ -11,7 +11,7 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 const CadastroFaculdade = (props) => {
     const [showPassword, setShowPassword] = React.useState(true);
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowPassword = () => setShowPassword((show) => !show); 
 
     const handleMouseDownPassword = (event = React.MouseEvent) => {
         event.preventDefault();
