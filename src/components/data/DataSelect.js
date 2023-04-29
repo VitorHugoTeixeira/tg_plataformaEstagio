@@ -74,4 +74,29 @@ const semestre = [
     },
 ];
 
-export { faculdades, cursos, periodo, semestre }
+const itemData = [
+        {
+            img: "/assets/imagens/Douglas.png",
+            title: "Douglas Ferreira",
+            age: 32
+        },
+        {
+            img: "/assets/imagens/Nicolly.png",
+            title: "Nicolly Costa",
+            age: 24
+        },
+        {
+            img: "/assets/imagens/Vitor.png",
+            title: "Vitor Hugo",
+            age: 23
+        },
+        {
+            img: "/assets/imagens/Wesley.png",
+            title: "Wesley Honório",
+            age: 24
+        },
+
+    
+]
+
+export { faculdades, cursos, periodo, semestre, itemData }

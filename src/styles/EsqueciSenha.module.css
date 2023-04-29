@@ -1,0 +1,23 @@
+.esqueciSenhaBotaoEnviar, .esqueciSenhaBotaoCancelar{
+    margin: 10px;
+    color: #fff;
+    font-family: "Barlow";
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.esqueciSenhaBotaoEnviar{
+    background-color: #FF6B35;
+}
+
+.esqueciSenhaBotaoCancelar{
+    background-color: #c7c7c7;
+}
+
+.esqueciSenhaBotaoEnviar:hover{
+    background-color: #f85114;
+}
+
+.esqueciSenhaTitulo{
+    font-family: 'Barlow';
+}
