@@ -1,0 +1,11 @@
+.DuvidasBotao{
+    background-color: #FF6B35;
+    color: #fff;
+    font-family: "Barlow";
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.DuvidasBotao:hover{
+    background-color: #f85114;
+}
