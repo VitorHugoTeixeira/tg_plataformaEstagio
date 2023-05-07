@@ -39,7 +39,7 @@ const CadastroAluno = (props) => {
                 >
                 </TextField>
                 <InputMask mask="99/99/9999" value={props.value} onChange={props.onChange}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Data de Nascimento" required />}
+                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8" label="Data de Nascimento" required />}
                 </InputMask>
                 <InputMask mask="999.999.999-99" value={props.value} onChange={props.onChange}>
                     {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CPF" required />}

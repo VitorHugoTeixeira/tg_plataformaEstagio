@@ -75,9 +75,9 @@ const Duvidas = () => {
                 </Box >
             </div>
             <div className="w-full flex justify-center items-end flex-col mr-12 mb-12">
-                    <img src="/assets/imagens/Duvidas.png" className="w-[100%]" alt="Classname" />
+                    <img src="/assets/imagens/Duvidas.png" className="w-[100%] h-[10%]" alt="Classname" />
                     <div className="absolute flex flex-col justify-center items-center w-7/12 ">
-                        <h1 className="text-lg xl:text-6xl lg:text-4xl md:text-4xl sm:text-4xl font-[Barlow] text-zinc-50 font-bold">Precisa de Ajuda?</h1>
+                        <h1 className="text-lg xl:text-6xl lg:text-4xl md:text-4xl sm:text-4xl font-[Barlow] text-zinc-50 font-bold mb-0 xl:mb-2">Precisa de Ajuda?</h1>
                         <h3 className="text-sm xl:text-2xl lg:text-xl md:text-xl sm:text-xl font-[Barlow] text-zinc-50 text-center">Vem para a nossa central de dúvidas!</h3>
                     </div>
                 </div>
