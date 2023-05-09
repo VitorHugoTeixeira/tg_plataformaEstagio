@@ -16,6 +16,7 @@ import PainelOrientador from '../components/PainelOrientador'
 import PainelCoordenacao from '../components/PainelCoordenacao'
 import PainelEmpresa from '../components/PainelEmpresa'
 import AcessoAluno from '../components/AcessoAluno'
+import AcessoDocumentos from '../components/AcessoDocumentos'
 
 export default function Home() {
   return (
@@ -25,7 +26,7 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&family=Source+Serif+Pro:wght@200;300;400;600;700;900&display=swap" rel="stylesheet" />
       </Head>
-      <AcessoAluno />
+      <AcessoDocumentos />
     </>
   )
 }
