@@ -1,14 +1,16 @@
-import styles from '../styles/CadastroOrientador.module.css'
-import Footer from "./Footer"
+import Footer from "../components/Footer"
 import * as React from 'react';
-import Menu from "./Menu"
-import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
+import Menu from "../components//Menu"
+import styles from "../styles/CadastroAluno.module.css"
+import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl } from '@mui/material';
 import '@emotion/react';
 import InputMask from "react-input-mask"
-import { faculdades } from "./data/DataSelect";
+import { useState } from "react";
+import { faculdades, cursos, periodo, semestre } from "../components/data/DataSelect";
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
-const CadastroOrientador = (props) => {
+const CadastroAluno = (props) => {
+    const [data, setData] = useState()
     const [showPassword, setShowPassword] = React.useState(true);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -23,11 +25,11 @@ const CadastroOrientador = (props) => {
                 component="form"
                 sx={{
                     height: "100vh",
-                    marginBottom: 90
+                    marginBottom: 100   
                 }}
                 noValidate
-                autoComplete="Off">
-                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>Cadastro do Orientador</h1>
+                autoComplete="Off"> 
+                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>Cadastro do Aluno</h1>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
@@ -37,24 +39,55 @@ const CadastroOrientador = (props) => {
                 >
                 </TextField>
                 <InputMask mask="99/99/9999" value={props.value} onChange={props.onChange}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Data de Nascimento" required />}
+                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8" label="Data de Nascimento" required />}
+                </InputMask>
+                <InputMask mask="999.999.999-99" value={props.value} onChange={props.onChange}>
+                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CPF" required />}
+                </InputMask>
+                <InputMask mask="99.999.999-9" value={props.value} onChange={props.onChange}>
+                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="RG" required />}
                 </InputMask>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Cidade"
-                    placeholder="Rio de Janeiro"
+                    label="Logradouro"
+                    placeholder="Rua Adonis Creed"
                     variant="standard"
                 >
                 </TextField>
-                <TextField
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    label="Estado"
-                    placeholder="Rio de Janeiro"
-                    variant="standard"
-                >
-                </TextField>
+                <div className="w-6/12 flex justify-between items-center flex-col xl:w-4/12 lg:w-6/12 xl:flex-row lg:flex-col md:flex-col sw:flex-col">
+                    <TextField className="w-full mt-8 xl:w-4/12 sm:mt-8"
+                        required
+                        label="Número"
+                        placeholder="213"
+                        variant="standard"
+                        type="number"
+                    >
+                    </TextField>
+                    <TextField className="w-full mt-8 xl:w-7/12 sm:mt-8"
+                        required
+                        label="Bairro"
+                        placeholder="Jardim Flora"
+                        variant="standard"
+                    >
+                    </TextField>
+                </div>
+                <div className="w-6/12 flex justify-between items-center flex-col xl:w-4/12 lg:w-6/12 xl:flex-row lg:flex-col md:flex-col sw:flex-col">
+                    <TextField className="w-full mt-8 xl:w-4/12 sm:mt-8"
+                        required
+                        label="Cidade"
+                        placeholder="Rio de Janeiro"
+                        variant="standard"
+                    >
+                    </TextField>
+                    <TextField className="w-full mt-8 xl:w-7/12 sm:mt-8"
+                        required
+                        label="Estado"
+                        placeholder="Bahia"
+                        variant="standard"
+                    >
+                    </TextField>
+                </div>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
@@ -67,7 +100,7 @@ const CadastroOrientador = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Registro Acadêmico (RA)"
+                    label="Registro"
                     placeholder="9812739127"
                     variant="standard"
                     type="number"
@@ -87,25 +120,48 @@ const CadastroOrientador = (props) => {
                         </MenuItem>
                     ))}
                 </TextField>
-                <div className="xl:w-4/12 flex justify-start items-start xl:flex-row flex-col pl-2 xl:pl-0">
-                    <FormGroup className="w-full xl:w-6/12 flex justify-start items-start mt-8 gap-1" >
-                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4`}>Cursos</h3>
-                        <FormControlLabel control={<Checkbox />} label="Sistemas Para a Internet" />
-                        <FormControlLabel control={<Checkbox />} label="Gestão Comercial" />
-                        <FormControlLabel control={<Checkbox />} label="Gestão de Turismo" />
-                    </FormGroup>
-                    <FormGroup className="w-full xl:w-6/12 flex justify-start items-start mt-8 gap-1" >
-                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4`}>Período</h3>
-                        <div>
-                            <FormControlLabel control={<Checkbox />} label="Manhã" />
-                            <FormControlLabel control={<Checkbox />} label="Tarde" />
-                        </div>
-                        <div>
-                            <FormControlLabel control={<Checkbox />} label="Noite" />
-                            <FormControlLabel control={<Checkbox />} label="Integral" />
-                        </div>
-                    </FormGroup>
-                </div>
+                <TextField
+                    select
+                    label="Curso"
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    variant="standard"
+
+                >
+                    {cursos.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                <TextField
+                    select
+                    label="Período"
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    variant="standard"
+
+                >
+                    {periodo.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                <TextField
+                    select
+                    label="Semestre"
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    variant="standard"
+
+                >
+                    {semestre.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
@@ -163,4 +219,4 @@ const CadastroOrientador = (props) => {
     )
 }
 
-export default CadastroOrientador
+export default CadastroAluno

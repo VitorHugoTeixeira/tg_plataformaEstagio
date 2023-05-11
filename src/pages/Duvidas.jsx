@@ -1,5 +1,5 @@
-import Footer from "./Footer"
-import Menu from "./Menu"
+import Footer from "../components/Footer"
+import Menu from "../components/Menu"
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Button, Divider } from "@mui/material";
 import styles from '../styles/Duvidas.module.css'
+import Link from "next/link";
 
 const Duvidas = () => {
     return (
@@ -83,7 +84,7 @@ const Duvidas = () => {
                 </div>
                 <div className="flex justify-center items-center flex-col w-full h-[30%] mb-12">
                     <h1 className="text-3xl font-[Barlow] mb-8 text-center">Não encontrou o que estava procurando?</h1>
-                    <Button className={`${styles.DuvidasBotao} text-sm xl:text-xl w-4/12 xl:w-2/12 lg:w-2/12 sm:w-3/12`}>Contato</Button>
+                    <Link href="/Contato" className={`${styles.DuvidasBotao} text-center font-bold text-md xl:text-xl w-4/12 xl:w-2/12 lg:w-2/12 sm:w-3/12`}>Contato</Link>
                 </div>
             <Footer />
         </>

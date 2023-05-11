@@ -1,6 +1,6 @@
-import Footer from "./Footer"
+import Footer from "../components/Footer"
 import * as React from 'react';
-import Menu from "./Menu"
+import Menu from "../components/Menu"
 import styles from "../styles/Login.module.css"
 import { TextField, Input, FormControl, Button, InputAdornment, IconButton } from '@mui/material';
 import '@emotion/react';

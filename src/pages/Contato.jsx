@@ -1,5 +1,5 @@
-import Menu from "./Menu"
-import Footer from "./Footer"
+import Menu from "../components/Menu";
+import Footer from "../components/Footer"
 import styles from "../styles/Contato.module.css"
 import * as React from 'react';
 import { Box, TextField, FormControlLabel, Checkbox, Button } from '@mui/material';

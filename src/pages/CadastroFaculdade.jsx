@@ -1,11 +1,11 @@
 import styles from '../styles/CadastroFaculdade.module.css'
-import Footer from "./Footer"
+import Footer from "../components/Footer"
 import * as React from 'react';
-import Menu from "./Menu"
+import Menu from "../components//Menu"
 import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import '@emotion/react';
 import InputMask from "react-input-mask"
-import { faculdades } from "./data/DataSelect";
+import { faculdades } from "../components/data/DataSelect"
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 const CadastroFaculdade = (props) => {

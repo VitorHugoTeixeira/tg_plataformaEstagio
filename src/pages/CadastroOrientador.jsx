@@ -1,16 +1,14 @@
-import Footer from "./Footer"
+import styles from '../styles/CadastroOrientador.module.css'
+import Footer from "../components/Footer"
 import * as React from 'react';
-import Menu from "./Menu"
-import styles from "../styles/CadastroEmpresa.module.css"
-import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl } from '@mui/material';
+import Menu from "../components//Menu"
+import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import '@emotion/react';
 import InputMask from "react-input-mask"
-import { useState } from "react";
-import { faculdades, cursos, periodo, semestre } from "./data/DataSelect";
+import { faculdades } from "../components/data/DataSelect"
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
-const CadastroEmpresa = (props) => {
-    const [data, setData] = useState()
+const CadastroOrientador = (props) => {
     const [showPassword, setShowPassword] = React.useState(true);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -25,89 +23,35 @@ const CadastroEmpresa = (props) => {
                 component="form"
                 sx={{
                     height: "100vh",
-                    marginBottom: 100
+                    marginBottom: 90
                 }}
                 noValidate
                 autoComplete="Off">
-                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>Cadastro da Empresa</h1>
-                <InputMask mask="99.999.999/9999-99" value={props.value} onChange={props.onChange}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CNPJ" required />}
-                </InputMask>
+                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>Cadastro do Orientador</h1>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Razão Social"
-                    placeholder="Digite a sua Razão Social"
-                    variant="standard"
-                >
-                </TextField>
-                <TextField
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    label="Nome Fantasia"
-                    placeholder="Digite o seu Nome Fantasia"
+                    label="Nome Completo"
+                    placeholder="Digite seu nome completo"
                     variant="standard"
                 >
                 </TextField>
                 <InputMask mask="99/99/9999" value={props.value} onChange={props.onChange}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Data de Abertura" required />}
+                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Data de Nascimento" required />}
                 </InputMask>
-                <TextField
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    label="Ramo de Atividade"
-                    placeholder="Digite seu Ramo de Atividade"
-                    variant="standard"
-                >
-                </TextField>
-                <TextField
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    label="Porte da Empresa"
-                    placeholder="Digite o Porte da Empresa"
-                    variant="standard"
-                >
-                </TextField>
-                <TextField
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    label="Logradouro"
-                    placeholder="Digite o seu Endereço"
-                    variant="standard"
-                >
-                </TextField>
-                <TextField
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    label="Número"
-                    placeholder="Digite o Número da Residência"
-                    variant="standard"
-                >
-                </TextField>
-                <TextField
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    label="Bairro"
-                    placeholder="Digite o seu Bairro"
-                    variant="standard"
-                >
-                </TextField>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
                     label="Cidade"
-                    placeholder="Digite a sua Cidade"
+                    placeholder="Rio de Janeiro"
                     variant="standard"
                 >
                 </TextField>
-                <InputMask mask="99999-999" value={props.value} onChange={props.onChange}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CEP" required />}
-                </InputMask>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
                     label="Estado"
-                    placeholder="Digite o seu Estado"
+                    placeholder="Rio de Janeiro"
                     variant="standard"
                 >
                 </TextField>
@@ -115,14 +59,53 @@ const CadastroEmpresa = (props) => {
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
                     label="E-mail"
-                    placeholder="Digite o seu e-mail"
+                    placeholder="adonis@gmail.com   "
                     variant="standard"
                     type="email"
                 >
                 </TextField>
-                <InputMask mask="(99) 99999-9999" value={props.value} onChange={props.onChange}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Celular" required />}
-                </InputMask>
+                <TextField
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    label="Registro Acadêmico (RA)"
+                    placeholder="9812739127"
+                    variant="standard"
+                    type="number"
+                >
+                </TextField>
+                <TextField
+                    select
+                    label="Instuição de Ensino"
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    variant="standard"
+
+                >
+                    {faculdades.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                <div className="xl:w-4/12 flex justify-start items-start xl:flex-row flex-col pl-2 xl:pl-0">
+                    <FormGroup className="w-full xl:w-6/12 flex justify-start items-start mt-8 gap-1" >
+                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4`}>Cursos</h3>
+                        <FormControlLabel control={<Checkbox />} label="Sistemas Para a Internet" />
+                        <FormControlLabel control={<Checkbox />} label="Gestão Comercial" />
+                        <FormControlLabel control={<Checkbox />} label="Gestão de Turismo" />
+                    </FormGroup>
+                    <FormGroup className="w-full xl:w-6/12 flex justify-start items-start mt-8 gap-1" >
+                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4`}>Período</h3>
+                        <div>
+                            <FormControlLabel control={<Checkbox />} label="Manhã" />
+                            <FormControlLabel control={<Checkbox />} label="Tarde" />
+                        </div>
+                        <div>
+                            <FormControlLabel control={<Checkbox />} label="Noite" />
+                            <FormControlLabel control={<Checkbox />} label="Integral" />
+                        </div>
+                    </FormGroup>
+                </div>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
@@ -180,4 +163,4 @@ const CadastroEmpresa = (props) => {
     )
 }
 
-export default CadastroEmpresa
+export default CadastroOrientador

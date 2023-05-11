@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import styles from '../styles/Menu.module.css'
 import { iconClose, iconMenuMobile } from './icons/icon'
+import Link from 'next/link'
 
 export default function Menu(props) {
     const [mobile, setMobileMenu] = useState('none')
@@ -33,10 +34,10 @@ export default function Menu(props) {
                 <div className={styles.menuDivNavbar}>
                     <nav className={styles.menuNav}>
                         <ul className={styles.menuList}>
-                            <li className={styles.menuListItem}><a href="">Home</a></li>
-                            <li className={styles.menuListItem}><a href="">Contato</a></li>
-                            <li className={styles.menuListItem}><a href="">Sobre Nós</a></li>
-                            <li className={styles.menuListItem}><a href="">Termos de Uso</a></li>
+                            <li className={styles.menuListItem}><Link href="/">Home</Link></li>
+                            <li className={styles.menuListItem}><Link href="./Contato">Contato</Link></li>
+                            <li className={styles.menuListItem}><Link href="/SobreNos">Sobre Nós</Link></li>
+                            <li className={styles.menuListItem}><Link href="/">Termos de Uso</Link></li>
                         </ul>
                     </nav>
                 </div>
@@ -46,21 +47,21 @@ export default function Menu(props) {
                             <button className={styles.menuDropdown}>Cadastrar</button>
                             <div className={styles.menuDropdownContent}>
                                 <span>
-                                    <a className={styles.dropdownListItemMobile} href="">Empresa</a>
+                                    <Link className={styles.dropdownListItemMobile} href="/CadastroEmpresa">Empresa</Link>
                                 </span>
                                 <span>
-                                    <a className={styles.dropdownListItemMobile} href="">Aluno</a>
+                                    <Link className={styles.dropdownListItemMobile} href="/CadastroAluno">Aluno</Link>
                                 </span>
                                 <span>
-                                    <a className={styles.dropdownListItemMobile} href="">Faculdade</a>
+                                    <Link className={styles.dropdownListItemMobile} href="/CadastroFaculdade">Faculdade</Link>
                                 </span>
                                 <span style={{ border: 'none' }}>
-                                    <a className={styles.dropdownListItemMobile} href="">Orientador</a>
+                                    <Link className={styles.dropdownListItemMobile} href="/CadastroOrientador">Orientador</Link>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <a href="" className={styles.menuLoginButton}>Login</a>
+                    <Link href="/Login" className={styles.menuLoginButton}>Login</Link>
                 </div>
             </div>
 
@@ -73,10 +74,10 @@ export default function Menu(props) {
                 </div>
                 <div className={styles.menuNavMobile}>
                     <ul className={styles.menuListMobile}>
-                        <li className={styles.menuListItemMobile}><a href="">Home</a></li>
-                        <li className={styles.menuListItemMobile}><a href="">Contato</a></li>
-                        <li className={styles.menuListItemMobile}><a href="">Sobre Nós</a></li>
-                        <li className={styles.menuListItemMobile}><a href="">Termos de Uso</a></li>
+                        <li className={styles.menuListItemMobile}><Link href="/">Home</Link></li>
+                        <li className={styles.menuListItemMobile}><Link href="/Contato">Contato</Link></li>
+                        <li className={styles.menuListItemMobile}><Link href="/SobreNos">Sobre Nós</Link></li>
+                        <li className={styles.menuListItemMobile}><Link href="">Termos de Uso</Link></li>
                     </ul>
                 </div>
                 <div className={styles.menuDivLoginCadastroMobile}>
@@ -84,20 +85,20 @@ export default function Menu(props) {
                         <button className={styles.menuDropdownMobile}>Cadastrar</button>
                         <div className={styles.menuDropdownContentMobile}>
                             <span>
-                                <a className={styles.dropdownListItemMobile} href="">Empresa</a>
+                                <Link className={styles.dropdownListItemMobile} href="/CadastroEmpresa">Empresa</Link>
                             </span>
                             <span>
-                                <a className={styles.dropdownListItemMobile} href="">Aluno</a>
+                                <Link className={styles.dropdownListItemMobile} href="/CadastroAluno">Aluno</Link>
                             </span>
                             <span>
-                                <a className={styles.dropdownListItemMobile} href="">Faculdade</a>
+                                <Link className={styles.dropdownListItemMobile} href="/CadastroEmpresa">Faculdade</Link>
                             </span>
                             <span style={{ border: 'none' }}>
-                                <a className={styles.dropdownListItemMobile} href="">Orientador</a>
+                                <Link className={styles.dropdownListItemMobile} href="/CadastroOrientador">Orientador</Link>
                             </span>
                         </div>
                     </div>
-                    <a href="" className={styles.menuLoginButtonMobile}>Login</a>
+                    <Link href="/Login" className={styles.menuLoginButtonMobile}>Login</Link>
                 </div>
             </div>
 

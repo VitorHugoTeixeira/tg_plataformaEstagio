@@ -1,5 +1,5 @@
-import Footer from "./Footer"
-import Menu from "./Menu"
+import Footer from "../components/Footer"
+import Menu from "../components/Menu"
 import * as React from 'react';
 import { Box, Divider } from "@mui/material";
 import PropTypes from 'prop-types';

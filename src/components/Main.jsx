@@ -60,31 +60,27 @@ const Main = () => {
                         </div>
                     </div>
                 </section>
-                <section className={styles.mainOpinioes}>
-                    <h3 className={`${styles.mainTituloOpiniao} text-3xl font-bold`}>Sobre Nós</h3>
+                <h3 className={`${styles.mainTituloOpiniao} text-3xl font-bold`}>Sobre Nós</h3>
+                <section className="flex justify-center items-center flex-wrap">
                     <div className={styles.mainGroupCriadores}>
                         <img className={styles.mainImagemCriador} src="/assets/imagens/Douglas.png" alt="Imagem do primeiro criador do projeto" />
-                        <h3 className={`${styles.mainNome} text-3xl font-bold`}>Douglas Santos</h3>
-                        <h4 className={`${styles.mainIdade} text-5xl font-bold`}>22 anos</h4>
-                        <p className={`${styles.mainApresentacao} text-xl font-bold`}>Um sistema com uma personalidade incrivel! Quando comecei a estagiar estava preocupada náo só com o estágio mas também em como me organizar para conseguir entregar as documentacões no tempo certo, com a paltaforma de estágio consegui concluir o estágio sem mais preocupacões.</p>
+                        <h3 className={`text-3xl font-bold text-[#004E89] mb-2`}>Douglas Santos</h3>
+                        <h4 className={`text-3xl font-bold`}>22 anos</h4>
                     </div>
                     <div className={styles.mainGroupCriadores}>
                         <img className={styles.mainImagemCriador} src="/assets/imagens/Nicolly.png" alt="Imagem do primeiro criador do projeto" />
-                        <h3 className={`${styles.mainNome} text-3xl font-bold`}>Nicolly Costa</h3>
-                        <h4 className={`${styles.mainIdade} text-5xl font-bold`}>22 anos</h4>
-                        <p className={`${styles.mainApresentacao} text-xl font-bold`}>Um sistema com uma personalidade incrivel! Quando comecei a estagiar estava preocupada náo só com o estágio mas também em como me organizar para conseguir entregar as documentacões no tempo certo, com a paltaforma de estágio consegui concluir o estágio sem mais preocupacões.</p>
+                        <h3 className={`text-3xl font-bold text-[#004E89] mb-2`}>Nicolly Costa</h3>
+                        <h4 className={`text-3xl font-bold`}>22 anos</h4>
                     </div>
                     <div className={styles.mainGroupCriadores}>
                         <img className={styles.mainImagemCriador} src="/assets/imagens/Vitor.png" alt="Imagem do primeiro criador do projeto" />
-                        <h3 className={`${styles.mainNome} text-3xl font-bold`}>Vitor Oliveira</h3>
-                        <h4 className={`${styles.mainIdade} text-5xl font-bold`}>22 anos</h4>
-                        <p className={`${styles.mainApresentacao} text-xl font-bold`}>Um sistema com uma personalidade incrivel! Quando comecei a estagiar estava preocupada náo só com o estágio mas também em como me organizar para conseguir entregar as documentacões no tempo certo, com a paltaforma de estágio consegui concluir o estágio sem mais preocupacões.</p>
+                        <h3 className={`text-3xl font-bold text-[#004E89] mb-2`}>Vitor Oliveira</h3>
+                        <h4 className={`text-3xl font-bold`}>22 anos</h4>
                     </div>
                     <div className={styles.mainGroupCriadores}>
                         <img className={styles.mainImagemCriador} src="/assets/imagens/Wesley.png" alt="Imagem do primeiro criador do projeto" />
-                        <h3 className={`${styles.mainNome} text-3xl font-bold`}>Wesley Gomes</h3>
-                        <h4 className={`${styles.mainIdade} text-5xl font-bold`}>22 anos</h4>
-                        <p className={`${styles.mainApresentacao} text-xl font-bold`}>Um sistema com uma personalidade incrivel! Quando comecei a estagiar estava preocupada náo só com o estágio mas também em como me organizar para conseguir entregar as documentacões no tempo certo, com a paltaforma de estágio consegui concluir o estágio sem mais preocupacões.</p>
+                        <h3 className={`text-3xl font-bold text-[#004E89] mb-2`}>Wesley Gomes</h3>
+                        <h4 className={`text-3xl font-bold`}>22 anos</h4>
                     </div>
                 </section>
             </main>

@@ -1,5 +1,5 @@
-import Footer from "./Footer"
-import Menu from "./Menu"
+import Footer from "../components/Footer"
+import Menu from "../components/Menu"
 import { ImageList, ImageListItem, IconButton } from "@mui/material"
 import { itemData } from "../components/data/DataSelect"
 

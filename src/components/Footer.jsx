@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from '../styles/Footer.module.css'
 import { iconInstagram, iconFacebook, iconTwitter } from './icons/icon'
 
@@ -10,21 +11,21 @@ const Footer = () => {
             </div>
             <div className={styles.footerBody}>
                 <div className={styles.footerColunaLinks}>
-                    <a href="./termosDeUso.jsx">Home</a>
-                    <a href="./termosDeUso.jsx">Aluno</a>
-                    <a href="./termosDeUso.jsx">Orientador</a>
-                    <a href="./termosDeUso.jsx">Faculdade</a>
+                    <Link href="/">Home</Link>
+                    <Link href="/CadastroAluno">Aluno</Link>
+                    <Link href="/CadastroOrientador">Orientador</Link>
+                    <Link href="/CadastroFaculdade">Faculdade</Link>
                 </div>
                 <div className={styles.footerColunaLinks}>
-                    <a href="./termosDeUso.jsx">Empresa</a>
-                    <a href="./termosDeUso.jsx">Sobre Nós</a>
-                    <a href="./termosDeUso.jsx">Dúvidas</a>
-                    <a href="./termosDeUso.jsx">Contato</a>
+                    <Link href="/CadastroEmpresa">Empresa</Link>
+                    <Link href="/SobreNos">Sobre Nós</Link>
+                    <Link href="/Duvidas">Dúvidas</Link>
+                    <Link href="/Contato">Contato</Link>
                 </div>
                 <div className={styles.footerGroupIcons}>
-                    <a href="">{iconTwitter}</a>
-                    <a href="">{iconFacebook}</a>
-                    <a href=""> {iconInstagram}</a>
+                    <Link href="https://twitter.com/">{iconTwitter}</Link>
+                    <Link href="https://www.facebook.com/">{iconFacebook}</Link>
+                    <Link href="https://www.instagram.com/"> {iconInstagram}</Link>
                 </div>
             </div>
         </footer>
