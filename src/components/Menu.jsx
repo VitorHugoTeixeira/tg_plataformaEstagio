@@ -56,7 +56,7 @@ export default function Menu(props) {
                                     <Link className={styles.dropdownListItemMobile} href="/CadastroFaculdade">Faculdade</Link>
                                 </span>
                                 <span style={{ border: 'none' }}>
-                                    <Link className={styles.dropdownListItemMobile} href="/CadastroOrientador">Orientador</Link>
+                                    <Link className={styles.dropdownListItemMobile} href="/CadastroOrientador">Supervisor</Link>
                                 </span>
                             </div>
                         </div>
@@ -94,7 +94,7 @@ export default function Menu(props) {
                                 <Link className={styles.dropdownListItemMobile} href="/CadastroEmpresa">Faculdade</Link>
                             </span>
                             <span style={{ border: 'none' }}>
-                                <Link className={styles.dropdownListItemMobile} href="/CadastroOrientador">Orientador</Link>
+                                <Link className={styles.dropdownListItemMobile} href="/CadastroOrientador">Supervisor</Link>
                             </span>
                         </div>
                     </div>

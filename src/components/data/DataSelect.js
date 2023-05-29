@@ -49,27 +49,27 @@ const periodo = [
 
 const semestre = [
     {
-        value: 'Primeiro',
+        value: '1',
         label: 1,
     },
     {
-        value: 'Segundo',
+        value: '2',
         label: 2,
     },
     {
-        value: 'Terceiro',
+        value: '3',
         label: 3,
     },
     {
-        value: 'Quarto',
+        value: '4',
         label: 4,
     },
     {
-        value: 'Quinto',
+        value: '5',
         label: 5,
     },
     {
-        value: 'Sexto',
+        value: '6',
         label: 6,
     },
 ];

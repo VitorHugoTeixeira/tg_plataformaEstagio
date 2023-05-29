@@ -2,6 +2,7 @@ import Menu from "./Menu"
 import styles from "../styles/Main.module.css"
 import { iconComputer, iconNotification, iconPaste, iconStar, iconFilter, iconGear } from "./icons/icon"
 import Footer from "./Footer"
+import Link from "next/link"
 
 const Main = () => {
     return (
@@ -15,7 +16,7 @@ const Main = () => {
                             <h2 className={styles.mainTitulo}>Plataforma digital para estágio!</h2>
                             <h1 className={styles.mainSubtitulo}>Documentação online para facilitar o seu estágio</h1>
                             <div className={styles.mainDivisaoLinkDetalhes}>
-                                <a className={styles.mainLinkDetalhes} href="">Saiba Mais</a>
+                                <Link className={styles.mainLinkDetalhes} href="/SobreNos">Saiba Mais</Link>
                             </div>
                         </div>
                     </div>

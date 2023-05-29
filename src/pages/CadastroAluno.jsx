@@ -9,26 +9,75 @@ import { useState } from "react";
 import { faculdades, cursos, periodo, semestre } from "../components/data/DataSelect";
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
+
 const CadastroAluno = (props) => {
-    const [data, setData] = useState()
-    const [showPassword, setShowPassword] = React.useState(true);
+    const [dob, setData] = useState()
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setConfirmShowPassword] = React.useState(false);
+    const [name, setName] = useState('')
+    const [cpf, setCPF] = useState('')
+    const [rg, setRG] = useState('')
+    const [logradouro, setLogradouro] = useState('')
+    const [num, setNumero] = useState('')
+    const [Bairro, setBairro] = useState('')
+    const [Cidade, setCidade] = useState('')
+    const [Estado, setEstado] = useState('')
+    const [email, setEmail] = useState('')
+    const [RA, setRA] = useState('')
+    const [Instituicao, setInstituicao] = useState('')
+    const [Curso, setCurso] = useState('')
+    const [Periodo, setPeriodoFaculdade] = useState('')
+    const [Semestre, setSemestreFaculdade] = useState('')
+    const [password, setPassword] = useState('')
+
+
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowConfirmPassword = () => setConfirmShowPassword((show) => !show);
 
     const handleMouseDownPassword = (event = React.MouseEvent) => {
         event.preventDefault();
     };
+
+    function cadastrarAluno() {
+        let id = ''
+        const url = "http://localhost:3001/signupAluno/"
+        const usuario = {
+            name, email, password, cpf, dob,
+            rg, logradouro, num, Bairro, Cidade,
+            Estado, RA, Instituicao, Curso, Periodo, Semestre
+        }
+
+        console.log(JSON.stringify(usuario))
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(usuario),
+            headers: {
+                'Content-type': 'application/json'
+            },
+
+        })
+            .then(response => response.json())
+            .then(json => {
+                if(json.token){
+                    window.location.href=`/Login/?token=${json.token}`
+                }
+            })
+            .catch(err => console.log(err))
+
+            console.log(id)
+    }
+
+
+
     return (
         <>
             <Menu />
             <Box className="flex justify-start items-center flex-col w-full"
                 component="form"
-                sx={{
-                    height: "100vh",
-                    marginBottom: 100   
-                }}
                 noValidate
-                autoComplete="Off"> 
+                autoComplete="Off">
                 <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>Cadastro do Aluno</h1>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
@@ -36,15 +85,17 @@ const CadastroAluno = (props) => {
                     label="Nome Completo"
                     placeholder="Digite seu nome completo"
                     variant="standard"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                 >
                 </TextField>
-                <InputMask mask="99/99/9999" value={props.value} onChange={props.onChange}>
+                <InputMask mask="99/99/9999" value={dob} onChange={(e) => setData(e.target.value)}>
                     {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8" label="Data de Nascimento" required />}
                 </InputMask>
-                <InputMask mask="999.999.999-99" value={props.value} onChange={props.onChange}>
+                <InputMask mask="999.999.999-99" value={cpf} onChange={(e) => setCPF(e.target.value)}>
                     {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CPF" required />}
                 </InputMask>
-                <InputMask mask="99.999.999-9" value={props.value} onChange={props.onChange}>
+                <InputMask mask="99.999.999-*" value={rg} onChange={(e) => setRG(e.target.value)}>
                     {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="RG" required />}
                 </InputMask>
                 <TextField
@@ -53,6 +104,8 @@ const CadastroAluno = (props) => {
                     label="Logradouro"
                     placeholder="Rua Adonis Creed"
                     variant="standard"
+                    value={logradouro}
+                    onChange={e => setLogradouro(e.target.value)}
                 >
                 </TextField>
                 <div className="w-6/12 flex justify-between items-center flex-col xl:w-4/12 lg:w-6/12 xl:flex-row lg:flex-col md:flex-col sw:flex-col">
@@ -62,6 +115,8 @@ const CadastroAluno = (props) => {
                         placeholder="213"
                         variant="standard"
                         type="number"
+                        value={num}
+                        onChange={e => setNumero(e.target.value)}
                     >
                     </TextField>
                     <TextField className="w-full mt-8 xl:w-7/12 sm:mt-8"
@@ -69,6 +124,8 @@ const CadastroAluno = (props) => {
                         label="Bairro"
                         placeholder="Jardim Flora"
                         variant="standard"
+                        value={Bairro}
+                        onChange={e => setBairro(e.target.value)}
                     >
                     </TextField>
                 </div>
@@ -78,6 +135,8 @@ const CadastroAluno = (props) => {
                         label="Cidade"
                         placeholder="Rio de Janeiro"
                         variant="standard"
+                        value={Cidade}
+                        onChange={e => setCidade(e.target.value)}
                     >
                     </TextField>
                     <TextField className="w-full mt-8 xl:w-7/12 sm:mt-8"
@@ -85,6 +144,8 @@ const CadastroAluno = (props) => {
                         label="Estado"
                         placeholder="Bahia"
                         variant="standard"
+                        value={Estado}
+                        onChange={e => setEstado(e.target.value)}
                     >
                     </TextField>
                 </div>
@@ -95,15 +156,19 @@ const CadastroAluno = (props) => {
                     placeholder="adonis@gmail.com   "
                     variant="standard"
                     type="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
                 >
                 </TextField>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Registro"
-                    placeholder="9812739127"
+                    label="RA"
+                    placeholder="981273912"
                     variant="standard"
                     type="number"
+                    value={RA}
+                    onChange={e => setRA(e.target.value)}
                 >
                 </TextField>
                 <TextField
@@ -112,6 +177,8 @@ const CadastroAluno = (props) => {
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
                     variant="standard"
+                    value={Instituicao}
+                    onChange={(e) => setInstituicao(e.target.value)}
 
                 >
                     {faculdades.map((option) => (
@@ -126,6 +193,8 @@ const CadastroAluno = (props) => {
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
                     variant="standard"
+                    value={Curso}
+                    onChange={e => setCurso(e.target.value)}
 
                 >
                     {cursos.map((option) => (
@@ -140,6 +209,8 @@ const CadastroAluno = (props) => {
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
                     variant="standard"
+                    value={Periodo}
+                    onChange={e => setPeriodoFaculdade(e.target.value)}
 
                 >
                     {periodo.map((option) => (
@@ -154,6 +225,8 @@ const CadastroAluno = (props) => {
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
                     variant="standard"
+                    value={Semestre}
+                    onChange={e => setSemestreFaculdade(e.target.value)}
 
                 >
                     {semestre.map((option) => (
@@ -162,19 +235,14 @@ const CadastroAluno = (props) => {
                         </MenuItem>
                     ))}
                 </TextField>
-                <TextField
-                    className="w-6/12 xl:w-4/12 mt-8"
-                    required
-                    label="Usuário"
-                    placeholder="Digite seu usuário"
-                    variant="standard"
-                ></TextField>
                 <FormControl sx={{ m: 1 }} variant="standard" className="w-6/12 xl:w-4/12 flex justify-center items-center mt-8">
                     <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
                     <Input className="w-full mt-8"
                         id="standard-adornment-password"
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Digite sua senha"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -194,24 +262,24 @@ const CadastroAluno = (props) => {
                     <InputLabel htmlFor="standard-adornment-Confirmpassword">Confirmar Senha</InputLabel>
                     <Input className="w-full mt-8"
                         id="standard-adornment-Confirmpassword"
-                        type={showPassword ? 'text' : 'password'}
+                        type={showConfirmPassword ? 'text' : 'password'}
                         placeholder="Confirme a sua senha"
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
                                     aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
+                                    onClick={handleClickShowConfirmPassword}
                                     onMouseDown={handleMouseDownPassword}
                                     edge="end"
                                     size="string"
                                 >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </InputAdornment>
                         }
                     />
                 </FormControl>
-                <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`}>Cadastrar</Button>
+                <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={cadastrarAluno}>Cadastrar</Button>
             </Box>
             <Footer />
         </>
