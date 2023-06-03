@@ -10,11 +10,12 @@ import { faculdades, cursos, periodo, semestre } from "../components/data/DataSe
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 const CadastroEmpresa = (props) => {
-    const [showPassword, setShowPassword] = React.useState(true);
-    const [showConfirmPassword, setConfirmShowPassword] = React.useState(true);
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setConfirmShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleClickShowConfirmPassword = () => setConfirmShowPassword((show) => !show);
+
 
     const handleMouseDownPassword = (event = React.MouseEvent) => {
         event.preventDefault();

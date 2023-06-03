@@ -1,16 +1,15 @@
-import Footer from "./Footer"
-import Menu from "./Menu"
+import Footer from "../components/Footer"
+import Menu from "../components/Menu"
 import * as React from 'react';
 import { Box, Button, Divider, Badge, IconButton, Avatar } from "@mui/material";
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import styles from '../styles/Duvidas.module.css'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import CardContent from '@mui/material/CardContent';cd
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';

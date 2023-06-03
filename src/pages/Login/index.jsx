@@ -14,8 +14,14 @@ import CloseIcon from '@mui/icons-material/Close';
 
 
 const Login = () => {
-    const [showPassword, setShowPassword] = React.useState(true);
+    const [showPassword, setShowPassword] = React.useState(false);
     const router = useRouter()
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+    const [emailError, setEmailError] = React.useState(false)
+    const [passwordError, setPasswordError] = React.useState(false)
+    const [labelEmail, setLabelEmail] = React.useState('E-mail')
+    const [labelPassword, setLabelPassword] = React.useState('Senha')
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -26,10 +32,60 @@ const Login = () => {
     const [open, setOpen] = React.useState(true);
     const view = router.query.token != undefined ? 'flex' : 'none'
 
+    function efetuarLogin() {
+        const url = "http://localhost:3001/signin/"
+        const credentials = { email, password }
+
+        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
+        //Validation Email
+        if (!validEmail.test(credentials.email)) {
+            setEmailError(true)
+            setLabelEmail("Por favor digite o E-mail de correta!") 
+            return   
+        }
+        else{
+            setEmailError(false)
+            setLabelEmail("E-mail")  
+        }
+
+
+        if(password.length < 8 || password === ''){
+            setPasswordError(true)
+            setLabelPassword("Por favor digite a senha com no minimo 8 caracteres!")
+            return
+        }
+        else{
+            setPasswordError(false)
+            setLabelPassword("Senha")    
+        }
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(credentials),
+            headers: {
+                'Content-type': 'application/json'
+            },
+
+        })
+            .then(response => response.json())
+            .then(json => { console.log(json)
+                if (json.token) {
+                    window.location.href = `/${json.tela}`
+                }
+            })
+            .catch(err => console.log(err))
+
+
+
+        console.log(JSON.stringify(credentials))
+
+    }
+
     return (
         <>
             <Menu />
-            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ mt: 2, display: view}}>
+            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ mt: 2, display: view }}>
                 <Collapse in={open}>
                     <Alert
                         action={
@@ -54,14 +110,9 @@ const Login = () => {
                 <div className={styles.loginGroup}>
                     <h1 className={`${styles.loginTitulo} text-3xl font-bold`}>Login</h1>
                     <h3 className={`${styles.loginSubtitulo} text-md font-thin`}>Seja Bem-Vindo ao nosso portal estágios</h3>
-                    <FormControl sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: "60%"
-                    }} className="fullWidth marginDense">
-                        <h2 className={`${styles.loginTituloInput} text-md font-thin`}>E-mail</h2>
-                        <Input
+                    <Box className="fullWidth marginDense w-[60%] flex flex-col justify-center items-center">
+                        <h2 className={`${styles.loginTituloInput} text-md font-thin ${emailError ? 'text-[#FF0000]' : 'text-[#000]'}`}>{labelEmail}</h2>
+                        <TextField
                             sx={
                                 {
                                     width: {
@@ -76,8 +127,8 @@ const Login = () => {
 
                                 }
                             }
-                            className={styles.loginInput} id="usuarioInput" type="text" placeholder="Digite seu e-mail" variant="standard" />
-                        <h2 className={`${styles.loginTituloInput} text-md font-thin`}>Senha</h2>
+                            className={styles.loginInput} id="usuarioInput" type="text" placeholder="Digite seu e-mail" variant="standard" value={email} onChange={e => setEmail(e.target.value)} error={emailError}></TextField>
+                        <h2 className={`${styles.loginTituloInput} text-md font-thin ${passwordError ? 'text-[#FF0000]' : 'text-[#000]'}`}>{labelPassword}</h2>
                         <Input className={styles.loginInput}
                             sx={
                                 {
@@ -95,6 +146,10 @@ const Login = () => {
                             id="filled-adornment-password"
                             type={showPassword ? 'text' : 'password'}
                             placeholder="Digite sua senha"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            helperText="Please select your currency"
+                            error={passwordError}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -109,8 +164,8 @@ const Login = () => {
                                 </InputAdornment>
                             }
                         />
-                        <Button className={`${styles.loginButton} text-xl`}>Enviar</Button>
-                    </FormControl>
+                        <Button className={`${styles.loginButton} text-xl`} onClick={efetuarLogin}>Enviar</Button>
+                    </Box>
                 </div>
             </main >
             <Footer />
