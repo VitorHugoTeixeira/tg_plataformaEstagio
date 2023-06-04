@@ -2,17 +2,17 @@ import Footer from "../../components/Footer"
 import * as React from 'react';
 import Menu from "../../components/Menu"
 import styles from "../../styles/Login.module.css"
-import { TextField, Input, FormControl, Button, InputAdornment, IconButton } from '@mui/material';
+import { TextField, Input, Box, Button, InputAdornment, IconButton } from '@mui/material';
 import '@emotion/react';
 import { VisibilityOff, Visibility, Padding, Cookie } from '@mui/icons-material';
 import { useRouter } from "next/router";
 import Cookies from "js-cookie"
-
-
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Login = () => {
     const [showPassword, setShowPassword] = React.useState(false);
-    const router = useRouter()
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     const [emailError, setEmailError] = React.useState(false)
@@ -25,9 +25,12 @@ const Login = () => {
     const handleMouseDownPassword = (event = React.MouseEvent) => {
         event.preventDefault();
     };
-
+    
+    const router = useRouter()
     const [open, setOpen] = React.useState(true);
-    const view = router.query.token != undefined ? 'flex' : 'none'
+    const { exibirMensagem } = router.query
+    const view = exibirMensagem ? 'flex' : 'none'
+    
 
     function efetuarLogin(e) {
         e.preventDefault()
@@ -62,7 +65,7 @@ const Login = () => {
                 'Content-type': 'application/json'
             },
 
-        })
+        })  
             .then(response => response.json())
             .then(json => {
                 console.log(json)
@@ -109,6 +112,27 @@ const Login = () => {
     return (
         <>
             <Menu />
+            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ mt: 2, display: view }}>
+                <Collapse in={open}>
+                    <Alert
+                        action={
+                            <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                    setOpen(false);
+                                }}
+                            >
+                                <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                        sx={{ mb: 2, fontWeight: 'bold' }}
+                    >
+                        Logout realizado!
+                    </Alert>
+                </Collapse>
+            </Box>
             <main className={styles.loginMain}>
                 <div className={styles.loginGroup}>
                     <h1 className={`${styles.loginTitulo} text-3xl font-bold`}>Login</h1>

@@ -6,12 +6,12 @@ import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButto
 import '@emotion/react';
 import InputMask from "react-input-mask"
 import { useState } from "react";
-import { faculdades, cursos, periodo, semestre } from "../components/data/DataSelect";
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router';
+import { cidadesBrasil, estadosBrasil, faculdades } from "../components/data/DataSelect"
 
 const CadastroEmpresa = (props) => {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -40,13 +40,211 @@ const CadastroEmpresa = (props) => {
     const [ramo, setRamo] = useState('')
     const [porte, setPorte] = useState('')
     const [telefone, setTelefone] = useState('')
+    const [confirmPassword, setConfirmPassword] = React.useState('')
+
+
+
+    const [razaoSocialError, setRazaoSocialError] = React.useState(false)
+    const [labelRazaoSocial, setLabelRazaoSocial] = React.useState('Razão Social')
+    const [nomeFantasiaError, setNomeFantasiaError] = React.useState(false)
+    const [labelNomeFantasia, setLabelNomeFantasia] = React.useState('Nome Fantasia')
+    const [ramoError, setRamoError] = React.useState(false)
+    const [labelRamo, setLabelRamo] = React.useState('Ramo de Atividade')
+    const [porteError, setPorteError] = React.useState(false)
+    const [labelPorte, setLabelPorte] = React.useState('Porte da Empresa')
+    const [logradouroError, setLogradouroError] = React.useState(false)
+    const [labelLogradouro, setLabelLogradouro] = React.useState('Logradouro')
+    const [numeroError, setNumeroError] = React.useState(false)
+    const [labelNumero, setLabelNumero] = React.useState('Número')
+    const [bairroError, setBairroError] = React.useState(false)
+    const [labelBairro, setLabelBairro] = React.useState('Bairro')
+    const [cepError, setCepError] = React.useState(false)
+    const [labelCep, setLabelCep] = React.useState('CEP')
+    const [telefoneError, setTelefoneError] = React.useState(false)
+    const [labelTelefone, setLabelTelefone] = React.useState('Celular')
+    const [dataError, setDataError] = React.useState(false)
+    const [labelData, setLabelData] = React.useState('Data de Abertura')
+    const [cidadeError, setCidadeError] = React.useState(false)
+    const [labelCidade, setLabelCidade] = React.useState('Cidade')
+    const [estadoError, setEstadoError] = React.useState(false)
+    const [labelEstado, setLabelEstado] = React.useState('Estado')
+    const [cnpjError, setCnpjError] = React.useState(false)
+    const [labelCnpj, setLabelCnpj] = React.useState('CNPJ')
+    const [emailError, setEmailError] = React.useState(false)
+    const [labelEmail, setLabelEmail] = React.useState('E-mail')
+    const [passwordError, setPasswordError] = React.useState(false)
+    const [labelPassword, setLabelPassword] = React.useState('Senha')
+    const [passwordConfirmError, setPasswordConfirmError] = React.useState(false)
+    const [labelConfirmPassword, setLabelConfirmPassword] = React.useState('Confirmar Senha')
 
     const [open, setOpen] = React.useState(true);
     const router = useRouter()
     const { exibirMensagem } = router.query
     const view = exibirMensagem ? 'flex' : 'none'
 
+    function validarCampos() {
+        let contador = 0
 
+        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if (!validEmail.test(email)) {
+            setEmailError(true)
+            setLabelEmail("Por favor digite o E-mail de forma correta!")
+            contador++
+        }
+        else {
+            setEmailError(false)
+            setLabelEmail("E-mail")
+        }
+
+        if (nomeFantasia.length == 0) {
+            setNomeFantasiaError(true)
+            setLabelNomeFantasia("Preencha o campo Nome Fantasia")
+            contador++
+        }
+        else {
+            setNomeFantasiaError(false)
+            setLabelNomeFantasia("Nome Fantasia")
+        }
+
+        if (password.length < 8 || password === '') {
+            setPasswordError(true)
+            setLabelPassword("Por favor digite a senha com no minimo 8 caracteres")
+            contador++
+        }
+        else {
+            setPasswordError(false)
+            setLabelPassword("Senha")
+        }
+
+        if (dob == null || dob == undefined || dob == '' || Date.parse(dob) >= new Date().getTime()) {
+            setDataError(true)
+            setLabelData("Escolha uma data válida")
+            contador++
+        }
+        else {
+            setDataError(false)
+            setLabelData("Data de Abertura")
+        }
+
+        if (!cidadesBrasil.filter(item => item.Nome == Cidade).length > 0) {
+            setCidadeError(true)
+            setLabelCidade("Digite uma cidade válida")
+            contador++
+        }
+        else {
+            setCidadeError(false)
+            setLabelCidade("Cidade")
+        }
+
+        if (!estadosBrasil.filter(item => item.Nome == Estado).length > 0) {
+            setEstadoError(true)
+            setLabelEstado("Digite um Estado válido")
+            contador++
+        }
+        else {
+            setEstadoError(false)
+            setLabelEstado("Estado")
+        }
+
+        if (cnpj === '' || cnpj.length < 18) {
+            setCnpjError(true)
+            setLabelCnpj("Digite um CNPJ válido")
+            contador++
+        }
+        else {
+            setCnpjError(false)
+            setLabelCnpj("CNPJ")
+        }
+
+        if (confirmPassword.length == password.length && confirmPassword === password) {
+            setLabelConfirmPassword('Confirmar senha')
+            setPasswordConfirmError(false)
+        }
+        else {
+            setLabelConfirmPassword("Senhas não conferem")
+            setPasswordConfirmError(true)
+            contador++
+        }
+
+        if (ramo == '') {
+            setLabelRamo('Preencha o campo Ramo de Atividade')
+            setRamoError(true)
+            contador++
+        }
+        else {
+            setLabelRamo('Ramo de Atividade')
+            setRamoError(false)
+        }
+
+        if (porte == '') {
+            setLabelPorte('Preencha o campo Porte da Empresa')
+            setPorteError(true)
+            contador++
+        }
+        else {
+            setLabelPorte('Porte da Empresa')
+            setPorteError(false)
+        }
+        if (logradouro == '') {
+            setLabelLogradouro('Preencha o campo Logradouro')
+            setLogradouroError(true)
+            contador++
+        }
+        else {
+            setLabelLogradouro('Logradouro')
+            setLogradouroError(false)
+        }
+        if (num == '') {
+            setLabelNumero('Preencha o campo Número')
+            setNumeroError(true)
+            contador++
+        }
+        else {
+            setLabelNumero('Número')
+            setNumeroError(false)
+        }
+        if (cep == '') {
+            setLabelCep('Preencha o campo CEP')
+            setCepError(true)
+            contador++
+        }
+        else {
+            setLabelCep('CEP')
+            setCepError(false)
+        }
+        if (telefone == '') {
+            setLabelTelefone('Preencha o campo Celular')
+            setTelefoneError(true)
+            contador++
+        }
+        else {
+            setLabelTelefone('Celular')
+            setTelefoneError(false)
+        }   
+        if (razaoSocial == '') {
+            setLabelRazaoSocial('Preencha o campo Razão Social')
+            setRazaoSocialError(true)
+            contador++
+        }
+        else {
+            setLabelRazaoSocial('Razão Social')
+            setRazaoSocialError(false)
+        }
+        if (Bairro == '') {
+            setLabelBairro('Preencha o campo Bairro')
+            setBairroError(true)
+            contador++
+        }
+        else {
+            setLabelBairro('Bairro')
+            setBairroError(false)
+        }
+
+
+
+        if (contador > 0) return false
+        else return true
+    }
 
     function cadastrarEmpresa() {
         const url = "http://localhost:3001/signupEmpresa/"
@@ -56,28 +254,30 @@ const CadastroEmpresa = (props) => {
             Estado, ramo, porte, telefone, nomeFantasia
         }
 
-        console.log(JSON.stringify(empresa))
+        if (validarCampos()) {
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(empresa),
+                headers: {
+                    'Content-type': 'application/json'
+                },
 
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify(empresa),
-            headers: {
-                'Content-type': 'application/json'
-            },
-
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.token) {
-                    window.location.href = `/CadastroAluno/?exibirMensagem=flex`
-                }
             })
-            .catch(err => console.log(err))
+                .then(response => response.json())
+                .then(json => {
+                    if (json.token) {
+                        window.location.href = `/CadastroEmpresa/?exibirMensagem=flex`
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+
+
     }
     return (
         <>
             <Menu />
-            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ mt: 2, display: view }}>
+            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ display: view }}>
                 <Collapse in={open}>
                     <Alert
                         action={
@@ -100,19 +300,17 @@ const CadastroEmpresa = (props) => {
             </Box>
             <Box className="flex justify-start items-center flex-col w-full"
                 component="form"
-                sx={{
-                    marginBottom: 10
-                }}
                 noValidate
                 autoComplete="Off">
-                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>Cadastro da Empresa</h1>
+                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-10`}>Cadastro da Empresa</h1>
                 <InputMask mask="99.999.999/9999-99" value={cnpj} onChange={e => (setCnpj(e.target.value))}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CNPJ" required />}
+                    {(inputProps) => <TextField {...inputProps} error={cnpjError} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label={labelCnpj} required />}
                 </InputMask>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Razão Social"
+                    label={labelRazaoSocial}
+                    error={razaoSocialError}
                     placeholder="Digite a sua Razão Social"
                     variant="standard"
                     value={razaoSocial}
@@ -122,20 +320,29 @@ const CadastroEmpresa = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Nome Fantasia"
+                    label={labelNomeFantasia}
+                    error={nomeFantasiaError}
                     placeholder="Digite o seu Nome Fantasia"
                     variant="standard"
                     value={nomeFantasia}
                     onChange={e => (setNomeFantasia(e.target.value))}
                 >
                 </TextField>
-                <InputMask mask="99/99/9999" value={dob} onChange={e => (setData(e.target.value))}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Data de Abertura" required />}
-                </InputMask>
+
+                <TextField
+                    InputLabelProps={{ shrink: true }}
+                    error={dataError} variant="standard"
+                    className="w-6/12 xl:w-4/12 mt-8 "
+                    label={labelData} type="date"
+                    required
+                    value={dob} onChange={e => (setData(e.target.value))}
+                />
+
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Ramo de Atividade"
+                    label={labelRamo}
+                    error={ramoError}
                     placeholder="Digite seu Ramo de Atividade"
                     variant="standard"
                     value={ramo}
@@ -145,7 +352,8 @@ const CadastroEmpresa = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Porte da Empresa"
+                    label={labelPorte}
+                    error={porteError}
                     placeholder="Digite o Porte da Empresa"
                     variant="standard"
                     value={porte}
@@ -155,7 +363,8 @@ const CadastroEmpresa = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Logradouro"
+                    label={labelLogradouro}
+                    error={logradouroError}
                     placeholder="Digite o seu Endereço"
                     variant="standard"
                     value={logradouro}
@@ -164,8 +373,10 @@ const CadastroEmpresa = (props) => {
                 </TextField>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
+                    type="number"
                     required
-                    label="Número"
+                    label={labelNumero}
+                    error={numeroError}
                     placeholder="Digite o Número da Residência"
                     variant="standard"
                     value={num}
@@ -175,7 +386,8 @@ const CadastroEmpresa = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Bairro"
+                    label={labelBairro}
+                    error={bairroError}
                     placeholder="Digite o seu Bairro"
                     variant="standard"
                     value={Bairro}
@@ -185,7 +397,8 @@ const CadastroEmpresa = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Cidade"
+                    label={labelCidade}
+                    error={cidadeError}
                     placeholder="Digite a sua Cidade"
                     variant="standard"
                     value={Cidade}
@@ -193,12 +406,20 @@ const CadastroEmpresa = (props) => {
                 >
                 </TextField>
                 <InputMask mask="99999-999" value={cep} onChange={e => (setCEP(e.target.value))}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CEP" required />}
+                    {(inputProps) => <TextField
+                        {...inputProps}
+                        variant="standard"
+                        className="w-6/12 xl:w-4/12 mt-8 "
+                        label={labelCep}
+                        error={cepError}
+                        required
+                    />}
                 </InputMask>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Estado"
+                    label={labelEstado}
+                    error={estadoError}
                     placeholder="Digite o seu Estado"
                     variant="standard"
                     value={Estado}
@@ -208,7 +429,8 @@ const CadastroEmpresa = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="E-mail"
+                    label={labelEmail}
+                    error={emailError}
                     placeholder="Digite o seu e-mail"
                     variant="standard"
                     type="email"
@@ -217,15 +439,23 @@ const CadastroEmpresa = (props) => {
                 >
                 </TextField>
                 <InputMask mask="(99) 99999-9999" value={telefone} onChange={e => (setTelefone(e.target.value))}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Celular" required />}
+                    {(inputProps) => <TextField
+                        {...inputProps}
+                        variant="standard"
+                        className="w-6/12 xl:w-4/12 mt-8"
+                        label={labelTelefone}
+                        error={telefoneError}
+                        required
+                    />}
                 </InputMask>
                 <FormControl sx={{ m: 1 }} variant="standard" className="w-6/12 xl:w-4/12 flex justify-center items-center mt-8">
-                    <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-password" error={passwordError}>{labelPassword}</InputLabel>
                     <Input className="w-full mt-8"
                         id="standard-adornment-password"
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Digite sua senha"
                         value={password}
+                        error={passwordError}
                         onChange={e => (setPassword(e.target.value))}
                         endAdornment={
                             <InputAdornment position="end">
@@ -243,11 +473,24 @@ const CadastroEmpresa = (props) => {
                     />
                 </FormControl>
                 <FormControl sx={{ m: 1 }} variant="standard" className="w-6/12 xl:w-4/12 flex justify-center items-center mt-8">
-                    <InputLabel htmlFor="standard-adornment-Confirmpassword">Confirmar Senha</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-Confirmpassword" error={passwordConfirmError}>{labelConfirmPassword}</InputLabel>
                     <Input className="w-full mt-8"
                         id="standard-adornment-Confirmpassword"
                         type={showConfirmPassword ? 'text' : 'password'}
                         placeholder="Confirme a sua senha"
+                        value={confirmPassword}
+                        error={passwordConfirmError}
+                        onChange={e => {
+                            setConfirmPassword(e.target.value)
+                            if (e.target.value.length > password.length) {
+                                setLabelConfirmPassword("Senhas não conferem")
+                                setPasswordConfirmError(true)
+                            }
+                            else {
+                                setLabelConfirmPassword('Confirmar senha')
+                                setPasswordConfirmError(false)
+                            }
+                        }}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton

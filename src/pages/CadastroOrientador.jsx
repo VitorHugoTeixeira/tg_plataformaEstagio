@@ -5,12 +5,12 @@ import Menu from "../components//Menu"
 import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import '@emotion/react';
 import InputMask from "react-input-mask"
-import { faculdades } from "../components/data/DataSelect"
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router';
+import { cidadesBrasil, estadosBrasil, faculdades } from "../components/data/DataSelect"
 
 
 const CadastroOrientador = (props) => {
@@ -33,7 +33,30 @@ const CadastroOrientador = (props) => {
     const [Cidade, setCidade] = React.useState('')
     const [Estado, setEstado] = React.useState('')
     const [RA, setRA] = React.useState('')
-    const [faculdade, setFaculdade] = React.useState('')
+    const [faculdade, setFaculdade] = React.useState('Fatec - São Roque')
+    const [confirmPassword, setConfirmPassword] = React.useState('')
+
+
+    const [nomeError, setNomeError] = React.useState(false)
+    const [labelNome, setLabelNome] = React.useState('Nome')
+    const [dataError, setDataError] = React.useState(false)
+    const [labelData, setLabelData] = React.useState('Data de Nascimento')
+    const [cidadeError, setCidadeError] = React.useState(false)
+    const [labelCidade, setLabelCidade] = React.useState('Cidade')
+    const [estadoError, setEstadoError] = React.useState(false)
+    const [labelEstado, setLabelEstado] = React.useState('Estado')
+    const [RAError, setRAError] = React.useState(false)
+    const [labelRA, setLabelRA] = React.useState('Registro Acadêmico (RA)')
+    const [cursosError, setCursosError] = React.useState(false)
+    const [labelCursos, setLabelCursosError] = React.useState('Cursos')
+    const [periodosError, setPeriodosError] = React.useState(false)
+    const [labelPeriodos, setLabelPeriodos] = React.useState('Períodos')
+    const [emailError, setEmailError] = React.useState(false)
+    const [labelEmail, setLabelEmail] = React.useState('E-mail')
+    const [passwordError, setPasswordError] = React.useState(false)
+    const [labelPassword, setLabelPassword] = React.useState('Senha')
+    const [passwordConfirmError, setPasswordConfirmError] = React.useState(false)
+    const [labelConfirmPassword, setLabelConfirmPassword] = React.useState('Confirmar Senha')
 
     const handleRemoveCurso = (indice) => {
         setCursos(cursos.filter((_, index) => index != indice));
@@ -48,6 +71,115 @@ const CadastroOrientador = (props) => {
     const { exibirMensagem } = router.query
     const view = exibirMensagem ? 'flex' : 'none'
 
+    function validarCampos() {
+        let contador = 0
+
+        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if (!validEmail.test(email)) {
+            setEmailError(true)
+            setLabelEmail("Por favor digite o E-mail de forma correta!")
+            contador++
+        }
+        else {
+            setEmailError(false)
+            setLabelEmail("E-mail")
+        }
+
+        if (nome.length == 0) {
+            setNomeError(true)
+            setLabelNome("Preencha o campo nome")
+            contador++
+        }
+        else {
+            setNomeError(false)
+            setLabelNome("Nome")
+        }
+
+        if (password.length < 8 || password === '') {
+            setPasswordError(true)
+            setLabelPassword("Por favor digite a senha com no minimo 8 caracteres")
+            contador++
+        }
+        else {
+            setPasswordError(false)
+            setLabelPassword("Senha")
+        }
+
+        if (dob == null || dob == undefined || dob == '' || Date.parse(dob) >= new Date().getTime()) {
+            setDataError(true)
+            setLabelData("Escolha uma data válida")
+            contador++
+        }
+        else {
+            setDataError(false)
+            setLabelData("Data de Abertura")
+        }
+
+        if (!cidadesBrasil.filter(item => item.Nome == Cidade).length > 0) {
+            setCidadeError(true)
+            setLabelCidade("Digite uma cidade válida")
+            contador++
+        }
+        else {
+            setCidadeError(false)
+            setLabelCidade("Cidade")
+        }
+
+        if (!estadosBrasil.filter(item => item.Nome == Estado).length > 0) {
+            setEstadoError(true)
+            setLabelEstado("Digite um Estado válido")
+            contador++
+        }
+        else {
+            setEstadoError(false)
+            setLabelEstado("Estado")
+        }
+
+        if (RA === '' || RA.length < 13) {
+            setRAError(true)
+            setLabelRA("Digite um RA válido")
+            contador++
+        }
+        else {
+            setRAError(false)
+            setLabelRA("Registro Acadêmico (RA)")
+        }
+
+        if (confirmPassword.length == password.length && confirmPassword === password) {
+            setLabelConfirmPassword('Confirmar senha')
+            setPasswordConfirmError(false)
+        }
+        else {
+            setLabelConfirmPassword("Senhas não conferem")
+            setPasswordConfirmError(true)
+            contador++
+        }
+
+        if (cursos.length == 0) {
+            setLabelCursosError('Escolha um ou mais cursos')
+            setCursosError(true)
+            contador++
+        }
+        else {
+            setLabelCursosError('Cursos')
+            setCursosError(false)
+        }
+        if (periodos.length == 0) {
+            setLabelPeriodos('Escolha um ou mais períodos')
+            setPeriodosError(true)
+            contador++
+        }
+        else {
+            setLabelPeriodos('Períodos')
+            setPeriodosError(false)
+        }
+
+        console.log(contador)
+
+        if (contador > 0) return false
+        else return true
+    }
+
     function cadastrarOrientador() {
         const url = "http://localhost:3001/signupOrientador/"
         const orientador = {
@@ -55,30 +187,35 @@ const CadastroOrientador = (props) => {
             Cidade, Estado, RA, faculdade
         }
 
-        console.log(orientador)
+        const validar = validarCampos()
+        console.log(validar)
 
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify(orientador),
-            headers: {
-                'Content-type': 'application/json'
-            },
+        if (validar) {
+            console.log(orientador)
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(orientador),
+                headers: {
+                    'Content-type': 'application/json'
+                },
 
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.token) {
-                    window.location.href = `/CadastroOrientador/?exibirMensagem=true`
-                }
             })
-            .catch(err => console.log(err))
+                .then(response => response.json())
+                .then(json => {
+                    if (json.token) {
+                        window.location.href = `/CadastroOrientador/?exibirMensagem=true`
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+
     }
 
 
     return (
         <>
             <Menu />
-            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ mt: 2, display: view }}>
+            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ display: view }}>
                 <Collapse in={open}>
                     <Alert
                         action={
@@ -110,21 +247,31 @@ const CadastroOrientador = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Nome Completo"
+                    error={nomeError}
+                    label={labelNome}
                     placeholder="Digite seu nome completo"
                     variant="standard"
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
                 >
                 </TextField>
-                <InputMask mask="99/99/9999" value={dob}
-                    onChange={(e) => setData(e.target.value)}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Data de Nascimento" required />}
-                </InputMask>
+                <TextField
+                    InputLabelProps={{ shrink: true }}
+                    type='date'
+                    variant="standard"
+                    className="w-6/12 xl:w-4/12 mt-8 "
+                    label={labelData}
+                    error={dataError}
+                    required
+                    value={dob}
+                    onChange={(e) => setData(e.target.value)}
+                />
+
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Cidade"
+                    label={labelCidade}
+                    error={cidadeError}
                     placeholder="Rio de Janeiro"
                     variant="standard"
                     value={Cidade}
@@ -134,7 +281,8 @@ const CadastroOrientador = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Estado"
+                    label={labelEstado}
+                    error={estadoError}
                     placeholder="Rio de Janeiro"
                     variant="standard"
                     value={Estado}
@@ -144,7 +292,8 @@ const CadastroOrientador = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="E-mail"
+                    label={labelEmail}
+                    error={emailError}
                     placeholder="adonis@gmail.com   "
                     variant="standard"
                     type="email"
@@ -155,7 +304,8 @@ const CadastroOrientador = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Registro Acadêmico (RA)"
+                    label={labelRA}
+                    error={RAError}
                     placeholder="9812739127"
                     variant="standard"
                     type="number"
@@ -164,7 +314,7 @@ const CadastroOrientador = (props) => {
                 >
                 </TextField>
                 <TextField
-                    select
+                    disabled
                     label="Instuição de Ensino"
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
@@ -172,15 +322,10 @@ const CadastroOrientador = (props) => {
                     value={faculdade}
                     onChange={(e) => setFaculdade(e.target.value)}
                 >
-                    {faculdades.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
                 </TextField>
                 <div className="xl:w-4/12 flex justify-start items-start xl:flex-row flex-col pl-2 xl:pl-0">
                     <FormGroup className="w-full xl:w-6/12 flex justify-start items-start mt-8 gap-1" >
-                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4`}>Cursos</h3>
+                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4 ${cursosError ? 'text-[#ff0000]' : 'text-[#000]'}`}>{labelCursos}</h3>
                         <FormControlLabel value={"Sistemas Para a Internet"} onClick={(e) => {
                         }} control={<Checkbox
                             onClick={(e) => {
@@ -197,7 +342,7 @@ const CadastroOrientador = (props) => {
                         }} />} label="Gestão de Turismo" />
                     </FormGroup>
                     <FormGroup className="w-full xl:w-6/12 flex justify-start items-start mt-8 gap-1" >
-                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4`}>Período</h3>
+                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4 ${periodosError ? 'text-[#ff0000]' : 'text-[#000]'}`}>{labelPeriodos}</h3>
                         <div>
                             <FormControlLabel control={<Checkbox onClick={(e) => {
                                 if (!periodos.includes("Manhã")) setPeriodos([...periodos, "Manhã"])
@@ -225,12 +370,13 @@ const CadastroOrientador = (props) => {
                     </FormGroup>
                 </div>
                 <FormControl sx={{ m: 1 }} variant="standard" className="w-6/12 xl:w-4/12 flex justify-center items-center mt-8">
-                    <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-password" error={passwordError}>{labelPassword}</InputLabel>
                     <Input className="w-full mt-8"
                         id="standard-adornment-password"
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Digite sua senha"
                         value={password}
+                        error={passwordError}
                         onChange={(e) => setPassword(e.target.value)}
                         endAdornment={
                             <InputAdornment position="end">
@@ -248,11 +394,24 @@ const CadastroOrientador = (props) => {
                     />
                 </FormControl>
                 <FormControl sx={{ m: 1 }} variant="standard" className="w-6/12 xl:w-4/12 flex justify-center items-center mt-8">
-                    <InputLabel htmlFor="standard-adornment-Confirmpassword">Confirmar Senha</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-Confirmpassword" error={passwordConfirmError}>{labelConfirmPassword}</InputLabel>
                     <Input className="w-full mt-8"
                         id="standard-adornment-Confirmpassword"
                         type={showConfirmPassword ? 'text' : 'password'}
                         placeholder="Confirme a sua senha"
+                        error={passwordConfirmError}
+                        value={confirmPassword}
+                        onChange={e => {
+                            setConfirmPassword(e.target.value)
+                            if (e.target.value.length > password.length) {
+                                setLabelConfirmPassword("Senhas não conferem")
+                                setPasswordConfirmError(true)
+                            }
+                            else {
+                                setLabelConfirmPassword('Confirmar senha')
+                                setPasswordConfirmError(false)
+                            }
+                        }}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton

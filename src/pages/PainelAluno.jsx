@@ -12,6 +12,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import Cookies from "js-cookie";
 
 
 
@@ -56,13 +57,21 @@ const PainelAluno = () => {
         setValue(newValue);
     };
 
+    function Logout(e) {
+        e.preventDefault()
+        Cookies.remove('email')
+        Cookies.remove('password')
+
+        window.location = '/Login/?exibirMensagem=true'
+    }
+
     return (
         <>
             <Menu />
             <Box className="w-full">
                 <div className="flex justify-center items-center p-4 xl:p-12 lg:p-12 md:p-12 sm:p-8">
                     <div className="mr-4 xl:mr-8 md:mr-8 lg:mr-8 sm:mr-4 flex flex-col justify-center items-center">
-                        <IconButton className="hover:bg-zinc-150">
+                        <IconButton className="hover:bg-zinc-150" onClick={e => Logout(e)}>
                             <LogoutIcon className="text-[#d3592d] font-bold text-4xl xl:text-6xl lg:text-6xl md:text-6xl sm:text-4xl transition-all" />
                         </IconButton>
                         <h4 className="text-md xl:text-xl lg:text-xl md:text-xl sm:text-md font-normal font-[Barlow]">Logout</h4>
@@ -81,6 +90,13 @@ const PainelAluno = () => {
                         <h3 className="text-[#004E89] text-lg xl:text-2xl lg:text-2xl md:text-2xl sm:text-lg font-thin">Bom dia!!</h3>
                     </div>
                 </div>
+                <section className="w-full bg-[#FF6B35] p-8 xl:p-12 lg:p-12 md:p-12 sm:p-8 text-[#fff]">
+                    <h2 className="font-[Barlow] text-2xl font-bold mb-2">Seja bem vindo!</h2>
+                    <h3 className="font-[Source-serif-Pro] font-thin w-full xl:w-8/12 lg:w-8/12 md:w-8/12 sm:w-full mt-4 mb-2 text-lg">Nosso site está preparado para deixar mais fácil o período mais importante da sua jornada acadêmica, se tiver alguma dúvida clique no botão ao lado para nós te ajudarmos</h3>
+                    <div className="w-full flex justify-end items-end p-0 xl:p-4 lg:p-4 md:p-4 sm:p-2">
+                        <a className="p-3 border-solid border-2 border-[#fff] rounded-3xl w-40 text-center font-bold hover:bg-[#d3592d]" href="">Dúvidas</a>
+                    </div>
+                </section>
                 <Box className="w-full flex flex-col justify-center items-start p-0 xl:p-12 lg:p-12 md:p-12 sm:p-8">
                     <h1 className="font-[Barlow] text-xl xl:text-2xl lg:text-2xl md:text-2xl sm:text-xl font-bold mb-4 p-4 mt-4">Documentação</h1>
                     <Box>
@@ -320,26 +336,6 @@ const PainelAluno = () => {
                         </Card>
                     </TabPanel>
                 </Box>
-                <section className="w-full bg-[#FF6B35] p-8 xl:p-12 lg:p-12 md:p-12 sm:p-8 text-[#fff]">
-                    <h2 className="font-[Barlow] text-2xl font-bold mb-2">Seja bem vindo!</h2>
-                    <h3 className="font-[Source-serif-Pro] font-thin w-full xl:w-8/12 lg:w-8/12 md:w-8/12 sm:w-full mt-4 mb-2 text-lg">Nosso site está preparado para deixar mais fácil o período mais importante da sua jornada acadêmica, se tiver alguma dúvida clique no botão ao lado para nós te ajudarmos</h3>
-                    <div className="w-full flex justify-end items-end p-0 xl:p-4 lg:p-4 md:p-4 sm:p-2">
-                        <a className="p-3 border-solid border-2 border-[#fff] rounded-3xl w-40 text-center font-bold hover:bg-[#d3592d]" href="">Dúvidas</a>
-                    </div>
-                </section>
-                <section className="flex justify-center items-center w-full mt-12 mb-12 flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-col">
-                    <div className="flex justify-center items-center flex-col mt-4 w-full text-center">
-                        <div className="">
-                            <h2 className="text-3xl font-bold font-[Barlow]">20h20</h2>
-                            <p className="text-3xl font-bold font-[Barlow]">Horas Completas</p>
-                        </div>
-                        <Divider className="bg-[#004E89] w-64 m-2"/>
-                        <div className="">
-                            <h2 className="text-3xl font-bold font-[Barlow]">240h</h2>
-                            <p className="text-3xl font-bold font-[Barlow]">Total de Horas</p>
-                        </div>
-                    </div>
-                </section>
             </Box>
             <Footer />
         </>

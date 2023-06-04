@@ -5,12 +5,13 @@ import Menu from "../components//Menu"
 import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import '@emotion/react';
 import InputMask from "react-input-mask"
-import { faculdades } from "../components/data/DataSelect"
+import { cidadesBrasil, estadosBrasil, faculdades } from "../components/data/DataSelect"
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
-import { useRouter} from 'next/router';
+import { useRouter } from 'next/router';
+import { data } from 'autoprefixer';
 
 const CadastroFaculdade = (props) => {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -34,6 +35,28 @@ const CadastroFaculdade = (props) => {
     const [Cidade, setCidade] = React.useState('')
     const [Estado, setEstado] = React.useState('')
     const [cnpj, setCNPJ] = React.useState('')
+    const [confirmPassword, setConfirmPassword] = React.useState('')
+
+    const [nomeError, setNomeError] = React.useState(false)
+    const [labelNome, setLabelNome] = React.useState('Nome')
+    const [dataError, setDataError] = React.useState(false)
+    const [labelData, setLabelData] = React.useState('Data de Abertura')
+    const [cidadeError, setCidadeError] = React.useState(false)
+    const [labelCidade, setLabelCidade] = React.useState('Cidade')
+    const [estadoError, setEstadoError] = React.useState(false)
+    const [labelEstado, setLabelEstado] = React.useState('Estado')
+    const [cnpjError, setCnpjError] = React.useState(false)
+    const [labelCNPJ, setLabelCnpj] = React.useState('CNPJ')
+    const [cursosError, setCursosError] = React.useState(false)
+    const [labelCursos, setLabelCursosError] = React.useState('Cursos')
+    const [periodosError, setPeriodosError] = React.useState(false)
+    const [labelPeriodos, setLabelPeriodos] = React.useState('Período')
+    const [emailError, setEmailError] = React.useState(false)
+    const [labelEmail, setLabelEmail] = React.useState('E-mail')
+    const [passwordError, setPasswordError] = React.useState(false)
+    const [labelPassword, setLabelPassword] = React.useState('Senha')
+    const [passwordConfirmError, setPasswordConfirmError] = React.useState(false)
+    const [labelConfirmPassword, setLabelConfirmPassword] = React.useState('Confirmar Senha')
 
 
     const handleRemoveCurso = (indice) => {
@@ -47,35 +70,126 @@ const CadastroFaculdade = (props) => {
     const [open, setOpen] = React.useState(true);
     const { exibirMensagem } = router.query
     const view = exibirMensagem ? 'flex' : 'none'
-    
-    function cadastrarFaculdade() {
+
+    function validarCampos() {
+        let contador = 0
+        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if (!validEmail.test(email)) {
+            setEmailError(true)
+            setLabelEmail("Por favor digite o E-mail de forma correta!")
+            contador++
+        }
+        else {
+            setEmailError(false)
+            setLabelEmail("E-mail")
+        }
+
+
+        if (nome.length == 0) {
+            setNomeError(true)
+            setLabelNome("Preencha o campo nome")
+            contador++
+        }
+        else {
+            setNomeError(false)
+            setLabelNome("Nome")
+        }
+
+        if (password.length < 8 || password === '') {
+            setPasswordError(true)
+            setLabelPassword("Por favor digite a senha com no minimo 8 caracteres")
+            contador++
+        }
+        else {
+            setPasswordError(false)
+            setLabelPassword("Senha")
+        }
+
+        if (dob == null || dob == undefined || dob == '' || Date.parse(dob) >= new Date().getTime()) {
+            setDataError(true)
+            setLabelData("Escolha uma data válida")
+            contador++
+        }
+        else {
+            setDataError(false)
+            setLabelData("Data de Abertura")
+        }
+
+        if (!cidadesBrasil.filter(item => item.Nome == Cidade).length > 0) {
+            setCidadeError(true)
+            setLabelCidade("Digite uma cidade válida")
+            contador++
+        }
+        else {
+            setCidadeError(false)
+            setLabelCidade("Cidade")
+        }
+
+        if (!estadosBrasil.filter(item => item.Nome == Estado).length > 0) {
+            setEstadoError(true)
+            setLabelEstado("Digite um Estado válido")
+            contador++
+        }
+        else {
+            setEstadoError(false)
+            setLabelEstado("Estado")
+        }
+
+        if (cnpj === '') {
+            setCnpjError(true)
+            setLabelCnpj("Digite um CNPJ válido")
+            contador++
+        }
+        else {
+            setCnpjError(false)
+            setLabelCnpj("CNPJ")
+        }
+
+        if (confirmPassword.length == password.length && confirmPassword === password) {
+            setLabelConfirmPassword('Confirmar senha')
+            setPasswordConfirmError(false)
+        }
+        else {
+            setLabelConfirmPassword("As senhas não conferem")
+            setPasswordConfirmError(true)
+        }
+
+        if (contador > 0) return true
+        else false
+    }
+
+    function cadastrarFaculdade(e) {
+        e.preventDefault()
         const url = "http://localhost:3001/signupFaculdade/"
         const faculdade = {
             nome, email, password, dob, cursos, periodos,
             Cidade, Estado, cnpj
         }
 
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify(faculdade),
-            headers: {
-                'Content-type': 'application/json'
-            },
+        if (validarCampos()) {
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(faculdade),
+                headers: {
+                    'Content-type': 'application/json'
+                },
 
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.token) {
-                    window.location.href = `/CadastroFaculdade/?exibirMensagem=flex`
-                }
             })
-            .catch(err => console.log(err))
+                .then(response => response.json())
+                .then(json => {
+                    if (json.token) {
+                        window.location.href = `/CadastroFaculdade/?exibirMensagem=flex`
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+
     }
 
     return (
         <>
             <Menu />
-            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ mt: 2, display: view }}>
+            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ display: view }}>
                 <Collapse in={open}>
                     <Alert
                         action={
@@ -96,7 +210,7 @@ const CadastroFaculdade = (props) => {
                     </Alert>
                 </Collapse>
             </Box>
-            <Box className="flex justify-start items-center flex-col w-full"
+            <form className="flex justify-start items-center flex-col w-full"
                 component="form"
                 sx={{
                     marginBottom: 2
@@ -107,20 +221,32 @@ const CadastroFaculdade = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Nome"
+                    label={labelNome}
+                    error={nomeError}
                     placeholder="Digite o nome da Instituição"
                     variant="standard"
                     value={nome}
                     onChange={e => (setNome(e.target.value))}
+                    type='text'
                 >
                 </TextField>
-                <InputMask mask="99/99/9999" value={dob} onChange={e => setData(e.target.value)}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="Data de Abertura" required />}
-                </InputMask>
+
+                <TextField
+                    value={dob}
+                    error={dataError}
+                    onChange={e => setData(e.target.value)}
+                    variant="standard"
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    type='date'
+                    InputLabelProps={{ shrink: true }}
+                    label={labelData} placeholder='Digite a data'
+                />
+
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Cidade"
+                    error={cidadeError}
+                    label={labelCidade}
                     placeholder="Rio de Janeiro"
                     variant="standard"
                     value={Cidade}
@@ -130,7 +256,8 @@ const CadastroFaculdade = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="Estado"
+                    error={estadoError}
+                    label={labelEstado}
                     placeholder="Rio de Janeiro"
                     variant="standard"
                     value={Estado}
@@ -139,11 +266,11 @@ const CadastroFaculdade = (props) => {
                 </TextField>
                 <InputMask mask="99.999.999/9999-99" value={cnpj}
                     onChange={e => (setCNPJ(e.target.value))}>
-                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label="CNPJ" required />}
+                    {(inputProps) => <TextField {...inputProps} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " error={cnpjError} label={labelCNPJ} required />}
                 </InputMask>
                 <div className="xl:w-4/12 flex justify-start items-start xl:flex-row flex-col pl-2 xl:pl-0">
                     <FormGroup className="w-full xl:w-6/12 flex justify-start items-start mt-8 gap-1" >
-                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4`}>Cursos</h3>
+                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4`}>{labelCursos}</h3>
                         <FormControlLabel value={"Sistemas Para a Internet"} onClick={(e) => {
                         }} control={<Checkbox
                             onClick={(e) => {
@@ -160,7 +287,7 @@ const CadastroFaculdade = (props) => {
                         }} />} label="Gestão de Turismo" />
                     </FormGroup>
                     <FormGroup className="w-full xl:w-6/12 flex justify-start items-start mt-8 gap-1" >
-                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4`}>Período</h3>
+                        <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4`}>{labelPeriodos}</h3>
                         <div>
                             <FormControlLabel control={<Checkbox onClick={(e) => {
                                 if (!periodos.includes("Manhã")) setPeriodos([...periodos, "Manhã"])
@@ -190,21 +317,23 @@ const CadastroFaculdade = (props) => {
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
-                    label="E-mail"
-                    placeholder="Digite seu usuário"
+                    error={emailError}
+                    label={labelEmail}
+                    placeholder="Digite seu e-mail"
                     variant="standard"
                     type='email'
                     value={email}
                     onChange={e => (setEmail(e.target.value))}
                 ></TextField>
                 <FormControl sx={{ m: 1 }} variant="standard" className="w-6/12 xl:w-4/12 flex justify-center items-center mt-8">
-                    <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-password" error={passwordError}>{labelPassword}</InputLabel>
                     <Input className="w-full mt-8"
                         id="standard-adornment-password"
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Digite sua senha"
                         value={password}
                         onChange={e => (setPassword(e.target.value))}
+                        error={passwordError}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -221,11 +350,24 @@ const CadastroFaculdade = (props) => {
                     />
                 </FormControl>
                 <FormControl sx={{ m: 1 }} variant="standard" className="w-6/12 xl:w-4/12 flex justify-center items-center mt-8">
-                    <InputLabel htmlFor="standard-adornment-Confirmpassword">Confirmar Senha</InputLabel>
+                    <InputLabel htmlFor="standard-adornment-Confirmpassword" error={passwordConfirmError}>{labelConfirmPassword}</InputLabel>
                     <Input className="w-full mt-8"
                         id="standard-adornment-Confirmpassword"
+                        value={confirmPassword}
                         type={showConfirmPassword ? 'text' : 'password'}
                         placeholder="Confirme a sua senha"
+                        error={passwordConfirmError}
+                        onChange={e => {
+                            setConfirmPassword(e.target.value)
+                            if (e.target.value.length > password.length) {
+                                setLabelConfirmPassword("Senhas não conferem")
+                                setPasswordConfirmError(true)
+                            }
+                            else {
+                                setLabelConfirmPassword('Confirmar senha')
+                                setPasswordConfirmError(false)
+                            }
+                        }}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -241,8 +383,8 @@ const CadastroFaculdade = (props) => {
                         }
                     />
                 </FormControl>
-                <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={cadastrarFaculdade}>Cadastrar</Button>
-            </Box>
+                <Button type='submit' className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={e => cadastrarFaculdade(e)}>Cadastrar</Button>
+            </form>
             <Footer />
         </>
 
