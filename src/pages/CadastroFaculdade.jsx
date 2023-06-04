@@ -7,6 +7,10 @@ import '@emotion/react';
 import InputMask from "react-input-mask"
 import { faculdades } from "../components/data/DataSelect"
 import { VisibilityOff, Visibility } from '@mui/icons-material';
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import { useRouter} from 'next/router';
 
 const CadastroFaculdade = (props) => {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -19,6 +23,8 @@ const CadastroFaculdade = (props) => {
         event.preventDefault();
     };
 
+    const router = useRouter()
+
     const [nome, setNome] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -29,6 +35,7 @@ const CadastroFaculdade = (props) => {
     const [Estado, setEstado] = React.useState('')
     const [cnpj, setCNPJ] = React.useState('')
 
+
     const handleRemoveCurso = (indice) => {
         setCursos(cursos.filter((_, index) => index != indice));
     };
@@ -37,7 +44,10 @@ const CadastroFaculdade = (props) => {
         setPeriodos(periodos.filter((_, index) => index != indice));
     };
 
-
+    const [open, setOpen] = React.useState(true);
+    const { exibirMensagem } = router.query
+    const view = exibirMensagem ? 'flex' : 'none'
+    
     function cadastrarFaculdade() {
         const url = "http://localhost:3001/signupFaculdade/"
         const faculdade = {
@@ -56,16 +66,36 @@ const CadastroFaculdade = (props) => {
             .then(response => response.json())
             .then(json => {
                 if (json.token) {
-                    window.location.href = `/Login/?token=${json.token}`
+                    window.location.href = `/CadastroFaculdade/?exibirMensagem=flex`
                 }
             })
             .catch(err => console.log(err))
     }
 
-
     return (
         <>
             <Menu />
+            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ mt: 2, display: view }}>
+                <Collapse in={open}>
+                    <Alert
+                        action={
+                            <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                    setOpen(false);
+                                }}
+                            >
+                                <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                        sx={{ mb: 2, fontWeight: 'bold' }}
+                    >
+                        Cadastro Realizado com Sucesso!!!
+                    </Alert>
+                </Collapse>
+            </Box>
             <Box className="flex justify-start items-center flex-col w-full"
                 component="form"
                 sx={{
@@ -211,7 +241,7 @@ const CadastroFaculdade = (props) => {
                         }
                     />
                 </FormControl>
-               <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={cadastrarFaculdade}>Cadastrar</Button>
+                <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={cadastrarFaculdade}>Cadastrar</Button>
             </Box>
             <Footer />
         </>

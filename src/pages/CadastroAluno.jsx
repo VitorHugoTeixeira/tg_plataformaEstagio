@@ -8,6 +8,10 @@ import InputMask from "react-input-mask"
 import { useState } from "react";
 import { faculdades, cursos, periodo, semestre } from "../components/data/DataSelect";
 import { VisibilityOff, Visibility } from '@mui/icons-material';
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import { useRouter } from 'next/router';
 
 
 const CadastroAluno = (props) => {
@@ -39,6 +43,11 @@ const CadastroAluno = (props) => {
         event.preventDefault();
     };
 
+    const [open, setOpen] = React.useState(true);
+    const router = useRouter()
+    const { exibirMensagem } = router.query
+    const view = exibirMensagem ? 'flex' : 'none'
+
     function cadastrarAluno() {
         let id = ''
         const url = "http://localhost:3001/signupAluno/"
@@ -60,13 +69,13 @@ const CadastroAluno = (props) => {
         })
             .then(response => response.json())
             .then(json => {
-                if(json.token){
-                    window.location.href=`/Login/?token=${json.token}`
+                if (json.token) {
+                    window.location.href = `/CadastroAluno/?exibirMensagem=flex`
                 }
             })
             .catch(err => console.log(err))
 
-            console.log(id)
+        console.log(id)
     }
 
 
@@ -74,6 +83,27 @@ const CadastroAluno = (props) => {
     return (
         <>
             <Menu />
+            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ mt: 2, display: view }}>
+                <Collapse in={open}>
+                    <Alert
+                        action={
+                            <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                    setOpen(false);
+                                }}
+                            >
+                                <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                        sx={{ mb: 2, fontWeight: 'bold' }}
+                    >
+                        Cadastro Realizado com Sucesso!!!
+                    </Alert>
+                </Collapse>
+            </Box>
             <Box className="flex justify-start items-center flex-col w-full"
                 component="form"
                 noValidate
