@@ -11,7 +11,8 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router';
 import { cidadesBrasil, estadosBrasil, faculdades } from "../components/data/DataSelect"
-
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import Cookies from "js-cookie";
 
 const CadastroOrientador = (props) => {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -35,6 +36,7 @@ const CadastroOrientador = (props) => {
     const [RA, setRA] = React.useState('')
     const [faculdade, setFaculdade] = React.useState('Fatec - São Roque')
     const [confirmPassword, setConfirmPassword] = React.useState('')
+    const [id, setId] = React.useState('')
 
 
     const [nomeError, setNomeError] = React.useState(false)
@@ -68,7 +70,7 @@ const CadastroOrientador = (props) => {
 
     const [open, setOpen] = React.useState(true);
     const router = useRouter()
-    const { exibirMensagem } = router.query
+    const { exibirMensagem, editarItens } = router.query
     const view = exibirMensagem ? 'flex' : 'none'
 
     function validarCampos() {
@@ -211,10 +213,98 @@ const CadastroOrientador = (props) => {
 
     }
 
+    function Retornar(e) {
+        window.location.href = '/PainelOrientador'
+    }
+
+    function atualizarDadosOrientador() {
+        const url = "http://localhost:3001/updateOrientador/"
+        const orientador = {
+            id, nome, email, password, dob, cursos, periodos,
+            Cidade, Estado, RA, faculdade
+        }
+
+        const validar = validarCampos()
+
+        if (validar) {
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(orientador),
+                headers: {
+                    'Content-type': 'application/json'
+                },
+
+            })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json)
+                    if (json.token) {
+                        Cookies.set("email", orientador.email)
+                        Cookies.set("password", orientador.password)
+                        console.log(json)
+
+                        window.location.href = `/CadastroOrientador?editarItens=true&exibirMensagem=flex`
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
+    React.useEffect(() => {
+        if (router.query.editarItens) {
+            const url = "http://localhost:3001/getOrientador/"
+            const email = Cookies.get("email")
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify({ email }),
+                headers: {
+                    'Content-type': 'application/json'
+                },
+            })
+                .then(response => response.json())
+                .then(json => {
+                    setId(json.savedOrientador._id)
+                    setNome(json.savedOrientador.nome)
+                    setData(json.savedOrientador.dob)
+                    setCidade(json.savedOrientador.Cidade)
+                    setEstado(json.savedOrientador.Estado)
+                    setEmail(json.savedOrientador.email)
+                    setRA(json.savedOrientador.RA)
+                    setCursos(json.savedOrientador.cursos.includes(',') ? json.savedOrientador.cursos.split(',') : [json.savedOrientador.cursos])
+                    setPeriodos(json.savedOrientador.periodos.includes(',') ? json.savedOrientador.periodos.split(',') : [json.savedOrientador.periodos])
+                    setPassword(Cookies.get("password"))
+                    setConfirmPassword(Cookies.get("password"))
+                    
+                    console.log(json)
+                    console.log(cursos)
+                })
+                .catch(err => console.log(err))
+        }
+        else {
+            setId('')
+            setNome('')
+            setData('')
+            setCidade('')
+            setEstado('')
+            setEmail('')
+            setRA('')
+            setCursos('')
+            setPeriodos('')
+            setPassword('')
+            setConfirmPassword('')
+            setConfirmPassword('')
+        }
+    }, [router.query.editarItens])
+
 
     return (
         <>
             <Menu />
+            <div className="p-2 ml-4 xl:ml-8 md:ml-8 lg:ml-8 sm:ml-4 flex flex-col justify-start items-start" style={{ display: editarItens ? 'flex' : 'none' }}>
+                <IconButton className="hover:bg-zinc-150 flex justify-center items-center" onClick={e => Retornar(e)}>
+                    <ArrowBackIosIcon className="text-[#d3592d] font-bold text-4xl xl:text-6xl lg:text-6xl md:text-6xl sm:text-4xl transition-all" />
+                </IconButton>
+            </div>
             <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ display: view }}>
                 <Collapse in={open}>
                     <Alert
@@ -232,7 +322,7 @@ const CadastroOrientador = (props) => {
                         }
                         sx={{ mb: 2, fontWeight: 'bold' }}
                     >
-                        Cadastro Realizado com Sucesso!!!
+                        {exibirMensagem && editarItens ? `Cadastro atualizado com sucesso` : 'Cadastro realizado com sucesso'}
                     </Alert>
                 </Collapse>
             </Box>
@@ -243,7 +333,7 @@ const CadastroOrientador = (props) => {
                 }}
                 noValidate
                 autoComplete="Off">
-                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>Cadastro do Supervisor</h1>
+                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>{editarItens ? 'Editar Cadastro do Supervisor' : 'Cadastro do Supervisor'}</h1>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
@@ -331,15 +421,15 @@ const CadastroOrientador = (props) => {
                             onClick={(e) => {
                                 if (!cursos.includes("Sistemas para a Internet")) setCursos([...cursos, "Sistemas para a Internet"])
                                 else handleRemoveCurso(cursos.indexOf("Sistemas para a Internet"))
-                            }} />} label="Sistemas Para a Internet" />
+                            }} checked={cursos.includes('Sistemas para a Internet') ? true : false}/>} label="Sistemas Para a Internet" />
                         <FormControlLabel control={<Checkbox onClick={(e) => {
                             if (!cursos.includes("Gestão Comercial")) setCursos([...cursos, "Gestão Comercial"])
                             else handleRemoveCurso(cursos.indexOf("Gestão Comercial"))
-                        }} />} label="Gestão Comercial" />
+                        }} checked={cursos.includes('Gestão Comercial') ? true : false}/>} label="Gestão Comercial" />
                         <FormControlLabel control={<Checkbox onClick={(e) => {
                             if (!cursos.includes("Gestão de Turismo")) setCursos([...cursos, "Gestão de Turismo"])
                             else handleRemoveCurso(cursos.indexOf("Gestão de Turismo"))
-                        }} />} label="Gestão de Turismo" />
+                        }} checked={cursos.includes('Gestão de Turismo') ? true : false}/>} label="Gestão de Turismo" />
                     </FormGroup>
                     <FormGroup className="w-full xl:w-6/12 flex justify-start items-start mt-8 gap-1" >
                         <h3 className={`${styles.cadastroCheckBoxTitulo} text-xl mb-4 ${periodosError ? 'text-[#ff0000]' : 'text-[#000]'}`}>{labelPeriodos}</h3>
@@ -348,24 +438,25 @@ const CadastroOrientador = (props) => {
                                 if (!periodos.includes("Manhã")) setPeriodos([...periodos, "Manhã"])
                                 else handleRemovePeriodo(periodos.indexOf("Manhã"))
                             }}
-                            />} label="Manhã" />
+                            checked={periodos.includes('Manhã') ? true : false} />} label="Manhã" />
                             <FormControlLabel control={<Checkbox onClick={(e) => {
                                 if (!periodos.includes("Tarde")) setPeriodos([...periodos, "Tarde"])
                                 else handleRemovePeriodo(periodos.indexOf("Tarde"))
                             }}
-                            />} label="Tarde" />
+                            checked={periodos.includes('Tarde') ? true : false} />} label="Tarde" />
                         </div>
                         <div>
                             <FormControlLabel control={<Checkbox onClick={(e) => {
                                 if (!periodos.includes("Noite")) setPeriodos([...periodos, "Noite"])
                                 else handleRemovePeriodo(periodos.indexOf("Noite"))
+                                
                             }}
-                            />} label="Noite" />
+                            checked={periodos.includes('Noite') ? true : false} />} label="Noite" />
                             <FormControlLabel control={<Checkbox onClick={(e) => {
                                 if (!periodos.includes("Integral")) setPeriodos([...periodos, "Integral"])
-                                else handleRemovePeriodo(periodos.indexOf("Integral"))
+                                else handleRemovePeriodo(periodos.indexOf("Integral")) 
                             }}
-                            />} label="Integral" />
+                            checked={periodos.includes('Integral') ? true : false} />} label="Integral" />
                         </div>
                     </FormGroup>
                 </div>
@@ -427,7 +518,7 @@ const CadastroOrientador = (props) => {
                         }
                     />
                 </FormControl>
-                <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={cadastrarOrientador}>Cadastrar</Button>
+                <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={editarItens ? atualizarDadosOrientador : cadastrarOrientador}>{editarItens ? 'Editar' : 'Cadastrar'}</Button>
             </Box>
             <Footer />
         </>

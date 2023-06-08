@@ -14,7 +14,8 @@ import CardContent from '@mui/material/CardContent';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import PainelCoordenacao from "./PainelCoordenacao";
+import Cookies from "js-cookie";
+import EditIcon from '@mui/icons-material/Edit';
 
 
 function PagePanel(props) {
@@ -50,6 +51,20 @@ function a11yProps(index) {
     };
 }
 
+
+function Logout(e) {
+    e.preventDefault()
+    Cookies.remove('email')
+    Cookies.remove('password')
+
+    window.location = '/Login/?exibirMensagem=true'
+}
+
+function editarCadastro(e) {
+    e.preventDefault()
+    window.location = '/CadastroEmpresa?editarItens=true'
+}
+
 const PainelEmpresa = () => {
     const [page, setPage] = React.useState(1);
 
@@ -64,23 +79,20 @@ const PainelEmpresa = () => {
             <Box className="w-full">
                 <div className="flex justify-center items-center p-4 xl:p-12 lg:p-12 md:p-12 sm:p-8">
                     <div className="mr-4 xl:mr-8 md:mr-8 lg:mr-8 sm:mr-4 flex flex-col justify-center items-center">
-                        <IconButton className="hover:bg-zinc-150">
+                        <IconButton className="hover:bg-zinc-150" onClick={e => Logout(e)}>
                             <LogoutIcon className="text-[#d3592d] font-bold text-4xl xl:text-6xl lg:text-6xl md:text-6xl sm:text-4xl transition-all" />
                         </IconButton>
                         <h4 className="text-md xl:text-xl lg:text-xl md:text-xl sm:text-md font-normal font-[Barlow]">Logout</h4>
                     </div>
                     <div className="flex flex-col justify-center items-center">
-                        <IconButton className="hover:bg-zinc-150">
-                            <Badge badgeContent={4} color="primary" className="z-0">
-                                <NotificationsIcon className="text-[#d3592d] font-bold text-4xl xl:text-6xl lg:text-6xl md:text-6xl sm:text-4xl transition-all" />
-                            </Badge>
+                        <IconButton className="hover:bg-zinc-150" onClick={e => editarCadastro(e)}>
+                            <EditIcon className="text-[#d3592d] font-bold text-4xl xl:text-6xl lg:text-6xl md:text-6xl sm:text-4xl transition-all" />
                         </IconButton>
-                        <h4 className="text-md xl:text-xl lg:text-xl md:text-xl sm:text-md font-normal font-[Barlow]">Notificações</h4>
+                        <h4 className="text-md xl:text-xl lg:text-xl md:text-xl sm:text-md font-normal font-[Barlow]">Editar</h4>
                     </div>
                     <Divider className="flex-1 h-2/4 bg-[#004E89] m-8" />
                     <div className="flex justify-center items-start flex-col">
                         <h1 className="text-[#004E89] text-2xl xl:text-4xl lg:text-4xl md:text-4xl sm:text-xl font-bold mb-1">Olá CBA</h1>
-                        <h3 className="text-[#004E89] text-lg xl:text-2xl lg:text-2xl md:text-2xl sm:text-lg font-thin">Bom dia!!</h3>
                     </div>
                 </div>
 

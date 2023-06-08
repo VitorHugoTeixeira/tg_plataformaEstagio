@@ -2,20 +2,22 @@ import Footer from "../components/Footer"
 import * as React from 'react';
 import Menu from "../components//Menu"
 import styles from "../styles/CadastroAluno.module.css"
-import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl } from '@mui/material';
+import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl} from '@mui/material';
 import '@emotion/react';
 import InputMask from "react-input-mask"
 import { useState } from "react";
 import { faculdades, cursos, periodo, semestre, cidadesBrasil, estadosBrasil } from "../components/data/DataSelect";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router';
+import Cookies from "js-cookie";
 
 
 const CadastroAluno = (props) => {
-    const [dob, setData] = useState()
+    const [dob, setData] = useState(new Date())
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfirmPassword, setConfirmShowPassword] = React.useState(false);
     const [name, setName] = useState('')
@@ -34,6 +36,7 @@ const CadastroAluno = (props) => {
     const [Semestre, setSemestreFaculdade] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = React.useState('')
+    const [id, setId] = React.useState('')
 
     const [nomeError, setNomeError] = React.useState(false)
     const [labelNome, setLabelNome] = React.useState('Nome')
@@ -70,6 +73,8 @@ const CadastroAluno = (props) => {
     const [passwordConfirmError, setPasswordConfirmError] = React.useState(false)
     const [labelConfirmPassword, setLabelConfirmPassword] = React.useState('Confirmar Senha')
 
+    let objAluno = {}
+
 
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -81,7 +86,7 @@ const CadastroAluno = (props) => {
 
     const [open, setOpen] = React.useState(true);
     const router = useRouter()
-    const { exibirMensagem } = router.query
+    const { exibirMensagem, editarItens } = router.query
     const view = exibirMensagem ? 'flex' : 'none'
 
     function validarCampos() {
@@ -255,7 +260,6 @@ const CadastroAluno = (props) => {
         }
 
         const validar = validarCampos()
-        console.log(validar)
 
         if (validar) {
             fetch(url, {
@@ -269,21 +273,114 @@ const CadastroAluno = (props) => {
                 .then(response => response.json())
                 .then(json => {
                     if (json.token) {
-                        window.location.href = `/CadastroAluno/?exibirMensagem=flex`
+                        window.location.href = `/CadastroAluno/?exibirMensagem=true`
                     }
                 })
                 .catch(err => console.log(err))
         }
-
-
-
     }
 
+    React.useEffect(() => {
+        if (router.query.editarItens) {
+            const url = "http://localhost:3001/getuser/"
+            const email = Cookies.get("email")
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify({ email }),
+                headers: {
+                    'Content-type': 'application/json'
+                },
+            })
+                .then(response => response.json())
+                .then(json => {
+                    setId(json.savedAluno._id)
+                    setName(json.savedAluno.name)
+                    setData(json.savedAluno.dob)
+                    setCPF(json.savedAluno.cpf)
+                    setRG(json.savedAluno.rg)
+                    setLogradouro(json.savedAluno.logradouro)
+                    setNumero(json.savedAluno.num)
+                    setBairro(json.savedAluno.Bairro)
+                    setCidade(json.savedAluno.Cidade)
+                    setEstado(json.savedAluno.Estado)
+                    setEmail(json.savedAluno.email)
+                    setRA(json.savedAluno.RA)
+                    setCurso(json.savedAluno.Curso)
+                    setPeriodoFaculdade(json.savedAluno.Periodo)
+                    setSemestreFaculdade(json.savedAluno.Semestre)
+                    setPassword(Cookies.get("password"))
+                    setConfirmPassword(Cookies.get("password"))
+                })
+                .catch(err => console.log(err))
+        }
+        else {
+            setId('')
+            setName('')
+            setData('')
+            setCPF('')
+            setRG('')
+            setLogradouro('')
+            setNumero('')
+            setBairro('')
+            setCidade('')
+            setEstado('')
+            setEmail('')
+            setRA('')
+            setCurso('')
+            setPeriodoFaculdade('')
+            setSemestreFaculdade('')
+            setPassword('')
+            setConfirmPassword('')
+        }
+    }, [router.query.editarItens])
 
+    function atualizarDados() {
+        const url = "http://localhost:3001/updatealuno/"
+        const usuario = {
+            id,
+            name, email, password, cpf, dob,
+            rg, logradouro, num, Bairro, Cidade,
+            Estado, RA, Instituicao, Curso, Periodo, Semestre
+        }
+
+        const validar = validarCampos()
+
+        if (validar) {
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(usuario),
+                headers: {
+                    'Content-type': 'application/json'
+                },
+
+            })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json)
+                    if (json.token) {
+                        Cookies.set("email", usuario.email)
+                        Cookies.set("password", usuario.password)
+                        console.log(json)
+
+                        window.location.href = `/CadastroAluno?editarItens=true&exibirMensagem=flex`
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
+    function Retornar(e){
+        window.location.href = '/PainelAluno'
+    }
 
     return (
         <>
             <Menu />
+            <div className="p-2 ml-4 xl:ml-8 md:ml-8 lg:ml-8 sm:ml-4 flex flex-col justify-start items-start" style={{display: editarItens ? 'flex': 'none'}}>
+                <IconButton className="hover:bg-zinc-150 flex justify-center items-center" onClick={e => Retornar(e)}>
+                    <ArrowBackIosIcon className="text-[#d3592d] font-bold text-4xl xl:text-6xl lg:text-6xl md:text-6xl sm:text-4xl transition-all" />
+                </IconButton>
+            </div>
             <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ display: view }}>
                 <Collapse in={open}>
                     <Alert
@@ -301,7 +398,7 @@ const CadastroAluno = (props) => {
                         }
                         sx={{ mb: 2, fontWeight: 'bold' }}
                     >
-                        Cadastro Realizado com Sucesso!!!
+                        {exibirMensagem && editarItens ? `Cadastro atualizado com sucesso` : 'Cadastro realizado com sucesso'}
                     </Alert>
                 </Collapse>
             </Box>
@@ -309,7 +406,7 @@ const CadastroAluno = (props) => {
                 component="form"
                 noValidate
                 autoComplete="Off">
-                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>Cadastro do Aluno</h1>
+                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-16`}>{editarItens ? 'Atualizar dados do Aluno' : 'Cadastro Aluno'}</h1>
                 <TextField
                     className="w-6/12 xl:w-4/12 mt-8"
                     required
@@ -552,7 +649,7 @@ const CadastroAluno = (props) => {
                         }
                     />
                 </FormControl>
-                <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={cadastrarAluno}>Cadastrar</Button>
+                <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={router.query.editarItens ? atualizarDados : cadastrarAluno}>{editarItens ? 'Editar' : 'Cadastrar'}</Button>
             </Box>
             <Footer />
         </>

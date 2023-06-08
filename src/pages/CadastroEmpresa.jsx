@@ -12,6 +12,8 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router';
 import { cidadesBrasil, estadosBrasil, faculdades } from "../components/data/DataSelect"
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import Cookies from "js-cookie";
 
 const CadastroEmpresa = (props) => {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -41,6 +43,7 @@ const CadastroEmpresa = (props) => {
     const [porte, setPorte] = useState('')
     const [telefone, setTelefone] = useState('')
     const [confirmPassword, setConfirmPassword] = React.useState('')
+    const [id, setId] = React.useState('')
 
 
 
@@ -79,7 +82,7 @@ const CadastroEmpresa = (props) => {
 
     const [open, setOpen] = React.useState(true);
     const router = useRouter()
-    const { exibirMensagem } = router.query
+    const { exibirMensagem, editarItens } = router.query
     const view = exibirMensagem ? 'flex' : 'none'
 
     function validarCampos() {
@@ -220,7 +223,7 @@ const CadastroEmpresa = (props) => {
         else {
             setLabelTelefone('Celular')
             setTelefoneError(false)
-        }   
+        }
         if (razaoSocial == '') {
             setLabelRazaoSocial('Preencha o campo Razão Social')
             setRazaoSocialError(true)
@@ -274,9 +277,109 @@ const CadastroEmpresa = (props) => {
 
 
     }
+
+    function Retornar(e) {
+        window.location.href = '/PainelEmpresa'
+    }
+
+    function atualizarEmpresa() {
+        const url = "http://localhost:3001/updateempresa/"
+        const empresa = {
+            id, dob, email, password, cnpj, razaoSocial,
+            cep, logradouro, num, Bairro, Cidade,
+            Estado, ramo, porte, telefone, nomeFantasia
+        }
+
+        const validar = validarCampos()
+
+        if (validar) {
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(empresa),
+                headers: {
+                    'Content-type': 'application/json'
+                },
+
+            })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json)
+                    if (json.token) {
+                        Cookies.set("email", empresa.email)
+                        Cookies.set("password", empresa.password)
+                        console.log(json)
+
+                        window.location.href = `/CadastroEmpresa?editarItens=true&exibirMensagem=flex`
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
+    React.useEffect(() => {
+        if (router.query.editarItens) {
+            const url = "http://localhost:3001/getEmpresa/"
+            const email = Cookies.get("email")
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify({ email }),
+                headers: {
+                    'Content-type': 'application/json'
+                },
+            })
+                .then(response => response.json())
+                .then(json => {
+                    setId(json.savedEmpresa._id)
+                    setCnpj(json.savedEmpresa.cnpj)
+                    setRazaoSocial(json.savedEmpresa.razaoSocial)
+                    setNomeFantasia(json.savedEmpresa.nomeFantasia)
+                    setData(json.savedEmpresa.dob)
+                    setRamo(json.savedEmpresa.ramo)
+                    setPorte(json.savedEmpresa.porte)
+                    setLogradouro(json.savedEmpresa.logradouro)
+                    setNumero(json.savedEmpresa.num)
+                    setBairro(json.savedEmpresa.Bairro)
+                    setCidade(json.savedEmpresa.Cidade)
+                    setCEP(json.savedEmpresa.cep)
+                    setEstado(json.savedEmpresa.Estado)
+                    setEmail(json.savedEmpresa.email)
+                    setTelefone(json.savedEmpresa.telefone)
+                    setPassword(Cookies.get("password"))
+                    setConfirmPassword(Cookies.get("password"))
+                    console.log(json)
+                })
+                .catch(err => console.log(err))
+        }
+        else {
+            setId('')
+            setCnpj('')
+            setRazaoSocial('')
+            setNomeFantasia('')
+            setData('')
+            setRamo('')
+            setPorte('')
+            setLogradouro('')
+            setNumero('')
+            setBairro('')
+            setCidade('')
+            setCEP('')
+            setEstado('')
+            setEmail('')
+            setTelefone('')
+            setPassword('')
+            setConfirmPassword('')
+        }
+    }, [router.query.editarItens])
+
+
     return (
         <>
             <Menu />
+            <div className="p-2 ml-4 xl:ml-8 md:ml-8 lg:ml-8 sm:ml-4 flex flex-col justify-start items-start" style={{ display: editarItens ? 'flex' : 'none' }}>
+                <IconButton className="hover:bg-zinc-150 flex justify-center items-center" onClick={e => Retornar(e)}>
+                    <ArrowBackIosIcon className="text-[#d3592d] font-bold text-4xl xl:text-6xl lg:text-6xl md:text-6xl sm:text-4xl transition-all" />
+                </IconButton>
+            </div>
             <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ display: view }}>
                 <Collapse in={open}>
                     <Alert
@@ -294,7 +397,7 @@ const CadastroEmpresa = (props) => {
                         }
                         sx={{ mb: 2, fontWeight: 'bold' }}
                     >
-                        Cadastro Realizado com Sucesso!!!
+                        {exibirMensagem && editarItens ? `Cadastro atualizado com sucesso` : 'Cadastro realizado com sucesso'}
                     </Alert>
                 </Collapse>
             </Box>
@@ -302,7 +405,7 @@ const CadastroEmpresa = (props) => {
                 component="form"
                 noValidate
                 autoComplete="Off">
-                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-10`}>Cadastro da Empresa</h1>
+                <h1 className={`${styles.cadastroTitulo} text-3xl font-bold mt-10`}>{editarItens ? 'Editar Cadastro Empresa' : 'Cadastro Empresa'}</h1>
                 <InputMask mask="99.999.999/9999-99" value={cnpj} onChange={e => (setCnpj(e.target.value))}>
                     {(inputProps) => <TextField {...inputProps} error={cnpjError} variant="standard" className="w-6/12 xl:w-4/12 mt-8 " label={labelCnpj} required />}
                 </InputMask>
@@ -506,7 +609,7 @@ const CadastroEmpresa = (props) => {
                         }
                     />
                 </FormControl>
-                <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={cadastrarEmpresa}>Cadastrar</Button>
+                <Button className={`${styles.cadastroBotao} text-sm xl:text-xl`} onClick={editarItens ? atualizarEmpresa : cadastrarEmpresa}>{editarItens ? 'Editar' : 'Cadastrar'}</Button>
             </Box>
             <Footer />
         </>
