@@ -13,6 +13,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 
 function editarCadastro(e){
@@ -123,7 +124,7 @@ const PainelAluno = () => {
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
+                                <Link href="/DeclaracaoAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
                             </CardActions>
                         </Card>
                         <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
@@ -141,49 +142,12 @@ const PainelAluno = () => {
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
+                                <Link href="/RelatorioAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
                             </CardActions>
                         </Card>
-
-                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className=" w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                            <CardActions className="w-full flex flex-col h-20">
-                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                <Divider className="h-5 text-[#000] font-bold w-full" />
-                            </CardActions>
-                            <CardContent className="flex justify-center items-center flex-col">
-                                <h2 className="font-[Barlow] text-xl">
-                                    Requerimento de Equivalência
-                                </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
-                                </h3>
-                            </CardContent>
-                            <CardActions className="flex justify-center items-center flex-col">
-                                <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
-                            </CardActions>
-                        </Card>
-
-                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className=" w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                            <CardActions className="w-full flex flex-col h-20">
-                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                <Divider className="h-5 text-[#000] font-bold w-full" />
-                            </CardActions>
-                            <CardContent className="flex justify-center items-center flex-col">
-                                <h2 className="font-[Barlow] text-xl">
-                                    Validação de Horas
-                                </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
-                                </h3>
-                            </CardContent>
-                            <CardActions className="flex justify-center items-center flex-col">
-                                <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
-                            </CardActions>
-                        </Card>
-
-                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className=" w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                    <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
                             <CardActions className="w-full flex flex-col h-20">
                                 <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
                                 <Divider className="h-5 text-[#000] font-bold w-full" />
@@ -201,8 +165,6 @@ const PainelAluno = () => {
                                 <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
                             </CardActions>
                         </Card>
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
                         <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
                             <CardActions className="w-full flex flex-col h-20">
                                 <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
@@ -237,7 +199,7 @@ const PainelAluno = () => {
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
+                                <Link href="/RequerimentoEquivalencia" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
                             </CardActions>
                         </Card>
 

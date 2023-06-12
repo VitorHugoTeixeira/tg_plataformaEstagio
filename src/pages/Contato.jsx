@@ -19,7 +19,7 @@ const Contato = () => {
                     <TextField className="mb-4" type="text" fullWidth variant="standard" label="Assunto" />
                     <TextField className="mb-4 mr-0 ml-0" type="text" fullWidth variant="standard" label="Mensagem" multiline rows={4} />
                     <div className="flex justify-center items-center">
-                        <FormControlLabel className="mt-8 self-start" control={<Checkbox sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }}/>} />
+                        <FormControlLabel className="mt-8 self-start" control={<Checkbox sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }} />} />
                         <h3 className={`${styles.contatoTextoCheckBox} self-end`}>Estou de acordo com o tratamento de meus dados pessoais fornecidos no formulário acima nos termos da Política de Privacidade da Plataforma de Estagio.</h3>
                     </div>
                     <Button className={`${styles.contatoBotaoEnviar} text-sm xl:text-xl`}>Enviar</Button>

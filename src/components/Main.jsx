@@ -66,7 +66,7 @@ const Main = () => {
                     <div className={styles.mainGroupCriadores}>
                         <img className={styles.mainImagemCriador} src="/assets/imagens/Douglas.png" alt="Imagem do primeiro criador do projeto" />
                         <h3 className={`text-3xl font-bold text-[#004E89] mb-2`}>Douglas Santos</h3>
-                        <h4 className={`text-3xl font-bold`}>22 anos</h4>
+                        <h4 className={`text-3xl font-bold`}>32 anos</h4>
                     </div>
                     <div className={styles.mainGroupCriadores}>
                         <img className={styles.mainImagemCriador} src="/assets/imagens/Nicolly.png" alt="Imagem do primeiro criador do projeto" />
@@ -76,12 +76,12 @@ const Main = () => {
                     <div className={styles.mainGroupCriadores}>
                         <img className={styles.mainImagemCriador} src="/assets/imagens/Vitor.png" alt="Imagem do primeiro criador do projeto" />
                         <h3 className={`text-3xl font-bold text-[#004E89] mb-2`}>Vitor Oliveira</h3>
-                        <h4 className={`text-3xl font-bold`}>22 anos</h4>
+                        <h4 className={`text-3xl font-bold`}>23 anos</h4>
                     </div>
                     <div className={styles.mainGroupCriadores}>
                         <img className={styles.mainImagemCriador} src="/assets/imagens/Wesley.png" alt="Imagem do primeiro criador do projeto" />
                         <h3 className={`text-3xl font-bold text-[#004E89] mb-2`}>Wesley Gomes</h3>
-                        <h4 className={`text-3xl font-bold`}>22 anos</h4>
+                        <h4 className={`text-3xl font-bold`}>24  anos</h4>
                     </div>
                 </section>
             </main>
