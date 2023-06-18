@@ -1,7 +1,7 @@
 import Footer from "../components/Footer"
 import Menu from "../components/Menu"
 import * as React from 'react';
-import { Box, Button, Divider, Badge, IconButton, Avatar } from "@mui/material";
+import { Box, Button, Divider, Input, IconButton, TextField } from "@mui/material";
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import styles from '../styles/Duvidas.module.css'
@@ -14,9 +14,10 @@ import CardContent from '@mui/material/CardContent';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import Cookies from "js-cookie";
 import Link from "next/link";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
 
-
-function editarCadastro(e){
+function editarCadastro(e) {
     e.preventDefault()
     window.location = '/CadastroAluno?editarItens=true'
 }
@@ -57,6 +58,14 @@ function a11yProps(index) {
 
 const PainelAluno = () => {
     const [value, setValue] = React.useState(0);
+    const [nomeAluno, setNomeAluno] = React.useState('')
+    const [icon, setIcon] = React.useState(<FileUploadIcon />)
+    const [icon2, setIcon2] = React.useState(<FileUploadIcon />)
+    const [icon3, setIcon3] = React.useState(<FileUploadIcon />)
+    const [icon4, setIcon4] = React.useState(<FileUploadIcon />)
+    const [icon5, setIcon5] = React.useState(<FileUploadIcon />)
+    const [icon6, setIcon6] = React.useState(<FileUploadIcon />)
+    const [icon7, setIcon7] = React.useState(<FileUploadIcon />)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -69,6 +78,25 @@ const PainelAluno = () => {
 
         window.location = '/Login/?exibirMensagem=true'
     }
+
+    React.useEffect(() => {
+
+        const url = "http://localhost:3001/getuser/"
+        const email = Cookies.get("email")
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({ email }),
+            headers: {
+                'Content-type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(json => {
+                setNomeAluno(json.savedAluno.name.split(" ")[0])
+            })
+            .catch(err => console.log(err))
+
+    }, [])
 
     return (
         <>
@@ -89,7 +117,7 @@ const PainelAluno = () => {
                     </div>
                     <Divider className="flex-1 h-2/4 bg-[#004E89] m-8" />
                     <div className="flex justify-center items-start flex-col">
-                        <h1 className="text-[#004E89] text-2xl xl:text-4xl lg:text-4xl md:text-4xl sm:text-xl font-bold mb-1">Olá Vitor</h1>
+                        <h1 className="text-[#004E89] text-2xl xl:text-4xl lg:text-4xl md:text-4xl sm:text-xl font-bold mb-1">Olá {nomeAluno}</h1>
                     </div>
                 </div>
                 <section className="w-full bg-[#FF6B35] p-8 xl:p-12 lg:p-12 md:p-12 sm:p-8 text-[#fff]">
@@ -105,10 +133,173 @@ const PainelAluno = () => {
                         <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons allowScrollButtonsMobile className="max-w-[300px] xl:max-w-full lg:max-w-full md:max-w-full sm:max-w-[300px]">
                             <Tab className="font-[Barlow] text-lg font-bold" label="Estágio" {...a11yProps(0)} />
                             <Tab className="font-[Barlow] text-lg font-bold" label="Empregado CLT" {...a11yProps(1)} />
-                            <Tab className="font-[Barlow] text-lg font-bold" label="Iniciação Cientifica" {...a11yProps(2)} />
+                            <Tab className="font-[Barlow] text-lg font-bold" label="Consultores e MEIS" {...a11yProps(2)} />
                         </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    Declaração de Atividades
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    Sem Atualizações
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href="/DeclaracaoAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    Relatório de Atividades
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    Sem Atualizações
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href="/RelatorioAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    Avaliação
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    Sem Atualizações
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href="/RelatorioAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    Termo de Comp. de Estágio
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    Sem Atualizações
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href="/RelatorioAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    Convênio de Con. de Estágio
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    Sem Atualizações
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href="/RelatorioAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    Rescisão de Com. de Estágio
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    Sem Atualizações
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href="/RelatorioAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    Validação de Horas de Estágio
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    Sem Atualizações
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href="/RelatorioAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    Apólice de Seguro
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    Sem Atualizações
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <label htmlFor="upload-photo" className="self-end">
+                                    <input
+                                        style={{ display: 'none' }}
+                                        id="upload-photo"
+                                        name="upload-photo"
+                                        type="file"
+                                        onChange={e => {
+                                            if (e.target.value) {
+                                                setIcon7(<FileDownloadDoneIcon />)
+                                            }
+
+                                        }}
+                                    />
+
+                                    <Button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" component="span">
+                                        {icon7} Enviar Apólice
+                                    </Button>
+                                </label>
+                            </CardActions>
+                        </Card>
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
                         <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
                             <CardActions className="w-full flex flex-col h-20">
                                 <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
@@ -145,16 +336,14 @@ const PainelAluno = () => {
                                 <Link href="/RelatorioAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
                             </CardActions>
                         </Card>
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                    <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
                             <CardActions className="w-full flex flex-col h-20">
                                 <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
                                 <Divider className="h-5 text-[#000] font-bold w-full" />
                             </CardActions>
                             <CardContent className="flex justify-center items-center flex-col">
                                 <h2 className="font-[Barlow] text-xl">
-                                    Declaração de Atividades
+                                    Avaliação de Estágio
                                 </h2>
                                 <h3 className="text-md font-thin font=[Barlow]">
                                     Atualizado no dia 21/12/1999
@@ -162,7 +351,7 @@ const PainelAluno = () => {
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
+                                <Link href="/Avaliacao" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
                             </CardActions>
                         </Card>
                         <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
@@ -172,7 +361,7 @@ const PainelAluno = () => {
                             </CardActions>
                             <CardContent className="flex justify-center items-center flex-col">
                                 <h2 className="font-[Barlow] text-xl">
-                                    Relatório de Atividades
+                                    Validação de Horas de Estágio
                                 </h2>
                                 <h3 className="text-md font-thin font=[Barlow]">
                                     Atualizado no dia 21/12/1999
@@ -180,11 +369,10 @@ const PainelAluno = () => {
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
+                                <Link href="/FichaHoras" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
                             </CardActions>
                         </Card>
-
-                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className=" w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
                             <CardActions className="w-full flex flex-col h-20">
                                 <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
                                 <Divider className="h-5 text-[#000] font-bold w-full" />
@@ -202,15 +390,14 @@ const PainelAluno = () => {
                                 <Link href="/RequerimentoEquivalencia" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
                             </CardActions>
                         </Card>
-
-                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className=" w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
                             <CardActions className="w-full flex flex-col h-20">
                                 <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
                                 <Divider className="h-5 text-[#000] font-bold w-full" />
                             </CardActions>
                             <CardContent className="flex justify-center items-center flex-col">
                                 <h2 className="font-[Barlow] text-xl">
-                                    Validação de Horas
+                                    Cópia da carteira de trabalho
                                 </h2>
                                 <h3 className="text-md font-thin font=[Barlow]">
                                     Atualizado no dia 21/12/1999
@@ -218,7 +405,24 @@ const PainelAluno = () => {
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
+                                <label htmlFor="upload-photo" className="self-end">
+                                    <input
+                                        style={{ display: 'none' }}
+                                        id="upload-photo"
+                                        name="upload-photo"
+                                        type="file"
+                                        onChange={e => {
+                                            if (e.target.value) {
+                                                setIcon(<FileDownloadDoneIcon />)
+                                            }
+
+                                        }}
+                                    />
+
+                                    <Button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" component="span">
+                                        {icon} Enviar CTPS
+                                    </Button>
+                                </label>
                             </CardActions>
                         </Card>
                     </TabPanel>
@@ -230,15 +434,32 @@ const PainelAluno = () => {
                             </CardActions>
                             <CardContent className="flex justify-center items-center flex-col">
                                 <h2 className="font-[Barlow] text-xl">
-                                    Declaração de Atividades
+                                    Contra. Prestação de Serviço
                                 </h2>
                                 <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
+                                    Sem atualizações
                                 </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
+                                <label htmlFor="upload-photo" className="self-end">
+                                    <input
+                                        style={{ display: 'none' }}
+                                        id="upload-photo"
+                                        name="upload-photo"
+                                        type="file"
+                                        onChange={e => {
+                                            if (e.target.value) {
+                                                setIcon2(<FileDownloadDoneIcon />)
+                                            }
+
+                                        }}
+                                    />
+
+                                    <Button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" component="span">
+                                        {icon2} Enviar
+                                    </Button>
+                                </label>
                             </CardActions>
                         </Card>
                         <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
@@ -248,53 +469,139 @@ const PainelAluno = () => {
                             </CardActions>
                             <CardContent className="flex justify-center items-center flex-col">
                                 <h2 className="font-[Barlow] text-xl">
-                                    Relatório de Atividades
+                                    Contra. MEI
                                 </h2>
                                 <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
+                                    Sem atualizações
                                 </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
+                                <label htmlFor="upload-photo3" className="self-end">
+                                    <input
+                                        style={{ display: 'none' }}
+                                        id="upload-photo3"
+                                        name="upload-photo3"
+                                        type="file"
+                                        onChange={e => {
+                                            if (e.target.value) {
+                                                setIcon3(<FileDownloadDoneIcon />)
+                                            }
+
+                                        }}
+                                    />
+
+                                    <Button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" component="span">
+                                        {icon3} Enviar
+                                    </Button>
+                                </label>
                             </CardActions>
                         </Card>
 
-                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className=" w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
                             <CardActions className="w-full flex flex-col h-20">
                                 <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
                                 <Divider className="h-5 text-[#000] font-bold w-full" />
                             </CardActions>
                             <CardContent className="flex justify-center items-center flex-col">
                                 <h2 className="font-[Barlow] text-xl">
-                                    Requerimento de Equivalência
+                                    Contra. Social da Empresa
                                 </h2>
                                 <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
+                                    Sem atualizações
                                 </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
+                                <label htmlFor="upload-photo4" className="self-end">
+                                    <input
+                                        style={{ display: 'none' }}
+                                        id="upload-photo4"
+                                        name="upload-photo4"
+                                        type="file"
+                                        onChange={e => {
+                                            if (e.target.value) {
+                                                setIcon4(<FileDownloadDoneIcon />)
+                                            }
+
+                                        }}
+                                    />
+
+                                    <Button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" component="span">
+                                        {icon4} Enviar
+                                    </Button>
+                                </label>
                             </CardActions>
                         </Card>
 
-                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className=" w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
                             <CardActions className="w-full flex flex-col h-20">
                                 <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
                                 <Divider className="h-5 text-[#000] font-bold w-full" />
                             </CardActions>
                             <CardContent className="flex justify-center items-center flex-col">
                                 <h2 className="font-[Barlow] text-xl">
-                                    Validação de Horas
+                                    Declaração da Empresa
                                 </h2>
                                 <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
+                                    Sem atualizações
                                 </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</button>
+                                <label htmlFor="upload-photo5" className="self-end">
+                                    <input
+                                        style={{ display: 'none' }}
+                                        id="upload-photo5"
+                                        name="upload-photo5"
+                                        type="file"
+                                        onChange={e => {
+                                            if (e.target.value) {
+                                                setIcon5(<FileDownloadDoneIcon />)
+                                            }
+
+                                        }}
+                                    />
+
+                                    <Button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" component="span">
+                                        {icon5} Enviar
+                                    </Button>
+                                </label>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl text-center">
+                                    Notas Fiscais
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    Sem atualizações
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <label htmlFor="upload-photo6" className="self-end">
+                                    <input
+                                        style={{ display: 'none' }}
+                                        id="upload-photo6"
+                                        name="upload-photo6"
+                                        type="file"
+                                        onChange={e => {
+                                            if (e.target.value) {
+                                                setIcon6(<FileDownloadDoneIcon />)
+                                            }
+
+                                        }}
+                                    />
+
+                                    <Button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" component="span">
+                                        {icon6} Enviar
+                                    </Button>
+                                </label>
                             </CardActions>
                         </Card>
                     </TabPanel>

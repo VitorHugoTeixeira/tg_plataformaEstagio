@@ -2,7 +2,7 @@ import Footer from "../components/Footer"
 import * as React from 'react';
 import Menu from "../components//Menu"
 import styles from "../styles/CadastroAluno.module.css"
-import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl} from '@mui/material';
+import { Box, TextField, MenuItem, InputLabel, Button, InputAdornment, IconButton, Input, FormControl } from '@mui/material';
 import '@emotion/react';
 import InputMask from "react-input-mask"
 import { useState } from "react";
@@ -37,6 +37,7 @@ const CadastroAluno = (props) => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = React.useState('')
     const [id, setId] = React.useState('')
+    const [empresa, setEmpresa] = React.useState('')
 
     const [nomeError, setNomeError] = React.useState(false)
     const [labelNome, setLabelNome] = React.useState('Nome')
@@ -56,8 +57,8 @@ const CadastroAluno = (props) => {
     const [labelBairro, setLabelBairro] = React.useState('Bairro')
     const [cpfError, setCPFError] = React.useState(false)
     const [labelCpf, setLabelCpf] = React.useState('CPF')
-    const [telefoneError, setTelefoneError] = React.useState(false)
-    const [labelTelefone, setLabelTelefone] = React.useState('Celular')
+    const [empresaError, setEmpresaError] = React.useState(false)
+    const [labelEmpresa, setLabelEmpresa] = React.useState('Empresa')
     const [dataError, setDataError] = React.useState(false)
     const [labelData, setLabelData] = React.useState('Data de Nascimento')
     const [cidadeError, setCidadeError] = React.useState(false)
@@ -246,6 +247,16 @@ const CadastroAluno = (props) => {
             setLabelBairro('Bairro')
             setBairroError(false)
         }
+        if (empresa == '') {
+            setLabelEmpresa('Preencha o campo Empresa')
+            setEmpresaError(true)
+            contador++
+        }
+        else {
+            setLabelEmpresa('Empresa')
+            setEmpresaError(false)
+            
+        }
 
         if (contador > 0) return false
         else return true
@@ -256,8 +267,10 @@ const CadastroAluno = (props) => {
         const usuario = {
             name, email, password, cpf, dob,
             rg, logradouro, num, Bairro, Cidade,
-            Estado, RA, Instituicao, Curso, Periodo, Semestre
+            Estado, RA, Instituicao, Curso, Periodo, Semestre, empresa
         }
+
+        console.log(usuario)
 
         const validar = validarCampos()
 
@@ -272,6 +285,7 @@ const CadastroAluno = (props) => {
             })
                 .then(response => response.json())
                 .then(json => {
+                    console.log(usuario)
                     if (json.token) {
                         window.location.href = `/CadastroAluno/?exibirMensagem=true`
                     }
@@ -303,6 +317,7 @@ const CadastroAluno = (props) => {
                     setBairro(json.savedAluno.Bairro)
                     setCidade(json.savedAluno.Cidade)
                     setEstado(json.savedAluno.Estado)
+                    setEmpresa(json.savedAluno.empresa)
                     setEmail(json.savedAluno.email)
                     setRA(json.savedAluno.RA)
                     setCurso(json.savedAluno.Curso)
@@ -340,7 +355,7 @@ const CadastroAluno = (props) => {
             id,
             name, email, password, cpf, dob,
             rg, logradouro, num, Bairro, Cidade,
-            Estado, RA, Instituicao, Curso, Periodo, Semestre
+            Estado, RA, Instituicao, Curso, Periodo, Semestre, empresa
         }
 
         const validar = validarCampos()
@@ -369,14 +384,14 @@ const CadastroAluno = (props) => {
         }
     }
 
-    function Retornar(e){
+    function Retornar(e) {
         window.location.href = '/PainelAluno'
     }
 
     return (
         <>
             <Menu />
-            <div className="p-2 ml-4 xl:ml-8 md:ml-8 lg:ml-8 sm:ml-4 flex flex-col justify-start items-start" style={{display: editarItens ? 'flex': 'none'}}>
+            <div className="p-2 ml-4 xl:ml-8 md:ml-8 lg:ml-8 sm:ml-4 flex flex-col justify-start items-start" style={{ display: editarItens ? 'flex' : 'none' }}>
                 <IconButton className="hover:bg-zinc-150 flex justify-center items-center" onClick={e => Retornar(e)}>
                     <ArrowBackIosIcon className="text-[#d3592d] font-bold text-4xl xl:text-6xl lg:text-6xl md:text-6xl sm:text-4xl transition-all" />
                 </IconButton>
@@ -539,6 +554,16 @@ const CadastroAluno = (props) => {
                     variant="standard"
                     value={Instituicao}
                     onChange={(e) => setInstituicao(e.target.value)}
+                >
+                </TextField>
+                <TextField
+                    label={labelEmpresa}
+                    error={empresaError}
+                    className="w-6/12 xl:w-4/12 mt-8"
+                    required
+                    variant="standard"
+                    value={empresa}
+                    onChange={(e) => setEmpresa(e.target.value)}
                 >
                 </TextField>
                 <TextField

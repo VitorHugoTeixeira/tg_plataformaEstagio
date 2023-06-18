@@ -7,15 +7,15 @@ const faculdades = [
 
 const cursos = [
     {
-        value: 'SI',
+        value: 'Sistemas para a Intenet',
         label: 'Sistemas para a Intenet',
     },
     {
-        value: 'GES',
+        value: 'Gestão Comercial',
         label: 'Gestão Comercial',
     },
     {
-        value: 'GEST',
+        value: 'Gestão em Turismo',
         label: 'Gestão em Turismo',
     }
 ];

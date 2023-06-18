@@ -14,6 +14,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 function PagePanel(props) {
     const { children, value, index, ...other } = props;
@@ -63,11 +64,31 @@ function editarCadastro(e) {
 
 const PainelOrientador = () => {
     const [page, setPage] = React.useState(1);
+    const [nomeOrientador, setNomeOrientador] = React.useState('')
+    const [curso, setCurso] = React.useState('')
 
-    const handleChange = (event, newPage) => {
-        setPage(newPage);
-        console.log(page)
-    };
+    React.useEffect(() => {
+
+        const url = "http://localhost:3001/getorientador/"
+        const email = Cookies.get("email")
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({ email }),
+            headers: {
+                'Content-type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json.savedOrientador)
+                setNomeOrientador(json.savedOrientador.nome.split(" ")[0])
+                setCurso(json.savedOrientador.cursos)
+                setId(json.savedOrientador._id)
+            })
+            .catch(err => console.log(err))
+
+    }, [])
+
 
     return (
         <>
@@ -88,242 +109,87 @@ const PainelOrientador = () => {
                     </div>
                     <Divider className="flex-1 h-2/4 bg-[#004E89] m-8" />
                     <div className="flex justify-center items-start flex-col">
-                        <h1 className="text-[#004E89] text-2xl xl:text-4xl lg:text-4xl md:text-4xl sm:text-xl font-bold mb-1">Olá Vitor</h1>
+                        <h1 className="text-[#004E89] text-2xl xl:text-4xl lg:text-4xl md:text-4xl sm:text-xl font-bold mb-1">Olá {nomeOrientador}</h1>
                     </div>
                 </div>
 
                 <section className="flex justify-center items-center w-full mb-12 flex-col">
-                    <Box className="w-full">
-                        <h1 className="font-[Barlow] text-xl xl:text-2xl lg:text-2xl md:text-2xl sm:text-xl font-bold p-4 xl:p-12 lg:p-12 md:p-12 sm:p-8">Turmas</h1>
-                        <PagePanel value={page} index={1}>
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Sistemas para a internet
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        3° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
+                    <h1 className="self-start font-[Barlow] text-xl xl:text-2xl lg:text-2xl md:text-2xl sm:text-xl font-bold p-4 xl:p-12 lg:p-12 md:p-12 sm:p-8">Turmas</h1>
+                    <Box className="w-full flex justify-center items-center flex-wrap">
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    {curso}
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    3° Semestre
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href={`/AcessoAluno?curso=${curso}&semestre=3`} className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</Link>
+                            </CardActions>
+                        </Card>
 
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Sistemas para a internet
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        4° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Sistemas para a internet
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        5° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Sistemas para a internet
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        6° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-                        </PagePanel>
-                        <PagePanel value={page} index={2}>        
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Gestão em Turismo
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        3° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Gestão em Turismo
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        4° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Gestão em Turismo
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        5° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Gestão em Turismo
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        6° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-                        </PagePanel>
-                        <PagePanel value={page} index={3}>
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Gestão Comercial
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        3° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Gestão Comercial
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        4° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Gestão Comercial
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        5° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-                            <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
-                                <CardActions className="w-full flex flex-col h-20">
-                                    <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
-                                    <Divider className="h-5 text-[#000] font-bold w-full" />
-                                </CardActions>
-                                <CardContent className="flex justify-center items-center flex-col">
-                                    <h2 className="font-[Barlow] text-xl">
-                                        Gestão Comercial
-                                    </h2>
-                                    <h3 className="text-md font-thin font=[Barlow]">
-                                        6° Semestre
-                                    </h3>
-                                </CardContent>
-                                <CardActions className="flex justify-center items-center flex-col">
-                                    <Divider className="h-1 text-[#000] font-bold w-full" />
-                                    <button className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</button>
-                                </CardActions>
-                            </Card>
-                        </PagePanel>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    {curso}
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    4° Semestre
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href={`/AcessoAluno?curso=${curso}&semestre=4`} className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</Link>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    {curso}
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    5° Semestre
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href={`/AcessoAluno?curso=${curso}&semestre=5`} className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</Link>
+                            </CardActions>
+                        </Card>
+                        <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
+                            <CardActions className="w-full flex flex-col h-20">
+                                <AssignmentIcon className="ml-2 mt-2 text-[#d3592d] self-start p-0" />
+                                <Divider className="h-5 text-[#000] font-bold w-full" />
+                            </CardActions>
+                            <CardContent className="flex justify-center items-center flex-col">
+                                <h2 className="font-[Barlow] text-xl">
+                                    {curso}
+                                </h2>
+                                <h3 className="text-md font-thin font=[Barlow]">
+                                    6° Semestre
+                                </h3>
+                            </CardContent>
+                            <CardActions className="flex justify-center items-center flex-col">
+                                <Divider className="h-1 text-[#000] font-bold w-full" />
+                                <Link href={`/AcessoAluno?curso=${curso}&semestre=6`} className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver Alunos</Link>
+                            </CardActions>
+                        </Card>
                     </Box>
-                    <Stack spacing={2} className="w-full flex justify-center items-center">
-                        <Pagination className="" onChange={handleChange} count={3} color="primary" />
-                    </Stack>
                 </section>
             </Box >
             <Footer />

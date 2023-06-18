@@ -15,7 +15,7 @@ const Duvidas = () => {
         <>
             <Menu />
             <div className="w-full">
-                <Box className="bg-[#FF6B35] p-12 border-none relative flex flex-col justify-center">
+                <Box className="bg-[#FF6B35] p-12 border-none flex flex-col justify-center">
                     <h1 className="font-[Barlow] text-3xl text-center mb-12 font-bold text-zinc-100">Dúvidas Frequentes</h1>
                     <Accordion className="bg-[#f85114]">
                         <AccordionSummary

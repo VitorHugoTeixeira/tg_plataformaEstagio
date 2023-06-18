@@ -37,7 +37,7 @@ export default function Menu(props) {
                             <li className={styles.menuListItem}><Link href="/">Home</Link></li>
                             <li className={styles.menuListItem}><Link href="./Contato">Contato</Link></li>
                             <li className={styles.menuListItem}><Link href="/SobreNos">Sobre Nós</Link></li>
-                            <li className={styles.menuListItem}><Link href="/">Termos de Uso</Link></li>
+                            <li className={styles.menuListItem}><Link href="/TermosUso">Termos de Uso</Link></li>
                         </ul>
                     </nav>
                 </div>
@@ -51,9 +51,6 @@ export default function Menu(props) {
                                 </span>
                                 <span>
                                     <Link className={styles.dropdownListItemMobile} href="/CadastroAluno">Aluno</Link>
-                                </span>
-                                <span>
-                                    <Link className={styles.dropdownListItemMobile} href="/CadastroFaculdade">Faculdade</Link>
                                 </span>
                                 <span style={{ border: 'none' }}>
                                     <Link className={styles.dropdownListItemMobile} href="/CadastroOrientador">Supervisor</Link>
@@ -77,7 +74,7 @@ export default function Menu(props) {
                         <li className={styles.menuListItemMobile}><Link href="/">Home</Link></li>
                         <li className={styles.menuListItemMobile}><Link href="/Contato">Contato</Link></li>
                         <li className={styles.menuListItemMobile}><Link href="/SobreNos">Sobre Nós</Link></li>
-                        <li className={styles.menuListItemMobile}><Link href="">Termos de Uso</Link></li>
+                        <li className={styles.menuListItemMobile}><Link href="/TermosUso">Termos de Uso</Link></li>
                     </ul>
                 </div>
                 <div className={styles.menuDivLoginCadastroMobile}>
@@ -89,9 +86,6 @@ export default function Menu(props) {
                             </span>
                             <span>
                                 <Link className={styles.dropdownListItemMobile} href="/CadastroAluno">Aluno</Link>
-                            </span>
-                            <span>
-                                <Link className={styles.dropdownListItemMobile} href="/CadastroEmpresa">Faculdade</Link>
                             </span>
                             <span style={{ border: 'none' }}>
                                 <Link className={styles.dropdownListItemMobile} href="/CadastroOrientador">Supervisor</Link>
