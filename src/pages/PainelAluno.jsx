@@ -59,6 +59,7 @@ function a11yProps(index) {
 const PainelAluno = () => {
     const [value, setValue] = React.useState(0);
     const [nomeAluno, setNomeAluno] = React.useState('')
+    const [id, setId] = React.useState('')
     const [icon, setIcon] = React.useState(<FileUploadIcon />)
     const [icon2, setIcon2] = React.useState(<FileUploadIcon />)
     const [icon3, setIcon3] = React.useState(<FileUploadIcon />)
@@ -80,7 +81,6 @@ const PainelAluno = () => {
     }
 
     React.useEffect(() => {
-
         const url = "http://localhost:3001/getuser/"
         const email = Cookies.get("email")
         fetch(url, {
@@ -93,6 +93,7 @@ const PainelAluno = () => {
             .then(response => response.json())
             .then(json => {
                 setNomeAluno(json.savedAluno.name.split(" ")[0])
+                setId(json.savedAluno._id)
             })
             .catch(err => console.log(err))
 
@@ -315,7 +316,7 @@ const PainelAluno = () => {
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
-                                <Link href="/DeclaracaoAtividade" className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
+                                <Link href={`/DeclaracaoAtividade?tokenAcesso=${id}`} className="self-end text-sm p-3 m-4 bg-[#FF6B35] text-[#fff] rounded-xl hover:bg-[#d3592d]" size="small">Ver documento</Link>
                             </CardActions>
                         </Card>
                         <Card sx={{ maxWidth: 350, borderRadius: 5 }} className="w-[300px] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
