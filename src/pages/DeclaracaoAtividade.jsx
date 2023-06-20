@@ -12,12 +12,12 @@ import Link from "next/link";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useRouter } from "next/router";
 import { FormatAlignJustifyRounded } from "@mui/icons-material";
+import Collapse from '@mui/material/Collapse';
+import Alert from '@mui/material/Alert';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
-function Retornar(e) {
-    window.location.href = '/PainelAluno'
-}
 
 
 const DeclaracaoAtividade = () => {
@@ -41,13 +41,18 @@ const DeclaracaoAtividade = () => {
     const [representante, setRepresentante] = React.useState('')
     const [funcao, setFuncao] = React.useState('')
     const [atividades, setAtividades] = React.useState('')
-    const [idAluno, setIdAluno] = React.useState('')
+    const [idAluno, setIdAluno] = React.useState(router.query.tokenAcesso)
+    const [mensagem, setMensagem] = React.useState(false)
+    const [open, setOpen] = React.useState(true);
 
+    function Retornar(e) {
+        if (router.query.tokenTela == 'Supervisor') window.location.href = "ExibicaoDocumentos?tokenAcesso=648f31565c04a2a5b0f68a5b&curso=Sistemas%20para%20a%20Internet&semestre=6"
+        else if (router.query.tokenTela == 'Empresa') window.location.href = "ExibicaoDocumentos?tokenAcesso=648f31565c04a2a5b0f68a5b&curso=Sistemas%20para%20a%20Internet&semestre=6&tokenTela=Empresa"
+        else window.location.href = '/PainelAluno'
+    }
 
     function assinarDocumento(e) {
         e.preventDefault()
-        setIdAluno(router.query.tokenAcesso)
-
         const documento = {
             tituloDocumento, name, cpf, rg, logradouro, num, Bairro, Cidade, Estado, Curso, nomeFantasia, logradouroEmpresa, numEmpresa, BairroEmpresa, CidadeEmpresa, EstadoEmpresa, representante, funcao, atividades, idAluno
         }
@@ -60,7 +65,7 @@ const DeclaracaoAtividade = () => {
         })
             .then(response => response.json())
             .then(json => {
-                console.log(json)
+                if(json) setMensagem(true)
             })
             .catch(err => console.log(err))
     }
@@ -151,6 +156,27 @@ const DeclaracaoAtividade = () => {
                     <ArrowBackIosIcon className="text-[#d3592d] font-bold text-4xl xl:text-6xl lg:text-6xl md:text-6xl sm:text-4xl transition-all" />
                 </IconButton>
             </div>
+            <Box className="w-[100%] xl:w-[30%] lg:w-[30%] md:w-[50%] sm:w-[100%]" sx={{ display: mensagem ? 'flex' : 'none' }}>
+                <Collapse in={open}>
+                    <Alert
+                        action={
+                            <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                    setOpen(false);
+                                }}
+                            >
+                                <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                        sx={{ mb: 2, fontWeight: 'bold' }}
+                    >
+                        {mensagem ? `Assinatura realizada com sucesso!!! Verifique a mensagem no seu email` : ''}
+                    </Alert>
+                </Collapse>
+            </Box>
             <Box className="w-[100%] flex justify-center items-center p-4">
                 <Card className="w-[100%] xl:w-[50%] lg:w-[50%] md:w-[80%] sm:w-[100%] m-1 xl:m-4 lg:m-4 md:m-4 sm:m-4">
                     <CardActions className="w-full flex flex-col h-20">

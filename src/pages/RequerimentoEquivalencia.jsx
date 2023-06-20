@@ -18,6 +18,77 @@ function Retornar(e) {
 }
 
 const RequerimentoEquivalencia = () => {
+    const [tituloDocumento, setTituloDocumento] = React.useState('Declaração de Atividades')
+    const [name, setName] = React.useState('')
+    const [cpf, setCPF] = React.useState('')
+    const [rg, setRG] = React.useState('')
+    const [logradouro, setLogradouro] = React.useState('')
+    const [num, setNumero] = React.useState('')
+    const [Bairro, setBairro] = React.useState('')
+    const [Cidade, setCidade] = React.useState('')
+    const [Estado, setEstado] = React.useState('')
+    const [Curso, setCurso] = React.useState('')
+    const [nomeFantasia, setNomeFantasia] = React.useState('')
+    const [logradouroEmpresa, setLogradouroEmpresa] = React.useState('')
+    const [numEmpresa, setNumeroEmpresa] = React.useState('')
+    const [BairroEmpresa, setBairroEmpresa] = React.useState('')
+    const [CidadeEmpresa, setCidadeEmpresa] = React.useState('')
+    const [EstadoEmpresa, setEstadoEmpresa] = React.useState('')
+    const [representante, setRepresentante] = React.useState('')
+    const [ra, setRA] = React.useState('')
+    const [atividades, setAtividades] = React.useState('')
+    const [idAluno, setIdAluno] = React.useState('')
+    const [semestre, setSemestre] = React.useState('')
+    const [periodo, setPeriodo] = React.useState('')
+    const [email, setEmail] = React.useState('')
+    const [emaiEmpresa, setEmailEmpresa] = React.useState('')
+
+    React.useEffect(() => {
+        const url = "http://localhost:3001/getuser/"
+        const email = Cookies.get("email")
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({ email }),
+            headers: {
+                'Content-type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(json => {
+                setName(json.savedAluno.name)
+                setCPF(json.savedAluno.cpf)
+                setRG(json.savedAluno.rg)
+                setLogradouro(json.savedAluno.logradouro)
+                setRA(json.savedAluno.RA)
+                setNumero(json.savedAluno.num)
+                setEmail(json.savedAluno.email)
+                setPeriodo(json.savedAluno.Periodo)
+                setSemestre(json.savedAluno.Semestre)
+                setBairro(json.savedAluno.Bairro)
+                setCidade(json.savedAluno.Cidade)
+                setEstado(json.savedAluno.Estado)
+                setCurso(json.savedAluno.Curso)
+                fetch("http://localhost:3001/getempresaByName/", {
+                    method: "POST",
+                    body: JSON.stringify({ nomeFantasia: json.savedAluno.empresa }),
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        setNomeFantasia(json.savedEmpresa.nomeFantasia)
+                        setLogradouroEmpresa(json.savedEmpresa.logradouro)
+                        setNumeroEmpresa(json.savedEmpresa.num)
+                        setBairroEmpresa(json.savedEmpresa.Bairro)
+                        setCidadeEmpresa(json.savedEmpresa.Cidade)
+                        setEstadoEmpresa(json.savedEmpresa.Estado)
+                        setEmailEmpresa(json.savedEmpresa.email)
+                    })
+                    .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+    })
     return (
         <div className="h-screen">
             <Menu />
@@ -42,28 +113,38 @@ const RequerimentoEquivalencia = () => {
                             <input
                                 className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Nome completo"
+                                value={name}
+                                onChange={e => setName(e.target.value)}
                             />
 
                             RG:
                             <input
                                 className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="RG"
+                                value={rg}
+                                onChange={e => setRG(e.target.value)}
                             />
                             <div>
                                 RA:
                                 <input
                                     className="w-[20%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="RA"
+                                    value={ra}
+                                    onChange={e => setRA(e.target.value)}
                                 />
                                 Curso:
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="Curso"
+                                    value={Curso}
+                                    onChange={e => setCurso(e.target.value)}
                                 />
                                 Semestre:
                                 <input
                                     className="w-[20%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="Semestre"
+                                    value={semestre}
+                                    onChange={e => setSemestre(e.target.value)}
                                 />
                             </div>
 
@@ -72,11 +153,15 @@ const RequerimentoEquivalencia = () => {
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="Período"
+                                    value={periodo}
+                                    onChange={e => setPeriodo(e.target.value)}
                                 />
                                 Ano:
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="Ano de Ingresso"
+                                    type="number"
+                                    value={2020}
                                 />
                             </div>
                             <div>
@@ -84,6 +169,8 @@ const RequerimentoEquivalencia = () => {
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="e-mail"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
                                 />
 
                                 Telefone:
@@ -98,12 +185,16 @@ const RequerimentoEquivalencia = () => {
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="Nome da Empresa"
+                                    value={nomeFantasia}
+                                    onChange={e => setNomeFantasia(e.target.value)}
                                 />
 
                                 Cidade:
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="Cidade"
+                                    value={CidadeEmpresa}
+                                    onChange={e => setCidadeEmpresa(e.target.value)}
                                 />
                             </div>
                             <div>
@@ -124,6 +215,8 @@ const RequerimentoEquivalencia = () => {
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="e-mail"
+                                    value={emaiEmpresa}
+                                    onChange={e => setEmailEmpresa(e.target.value)}
                                 />
 
                                 Telefone:
@@ -137,21 +230,29 @@ const RequerimentoEquivalencia = () => {
                             <input
                                 className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Nome do Aluno"
+                                value={name}
+                                onChange={e => setName(e.target.value)}
                             />
                             RA:
                             <input
                                 className="w-[15%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="RA"
+                                value={ra}
+                                onChange={e => setRA(e.target.value)}
                             />
                             CPF:
                             <input
                                 className="w-[25%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="CPF"
+                                value={cpf}
+                                onChange={e => setCPF(e.target.value)}
                             />
                             matriculado (a) no curso de:
                             <input
                                 className="w-[25%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Curso"
+                                value={Curso}
+                                onChange={e => setCurso(e.target.value)}
                             />
                             da Fatec de São Roque, declaro estar ciente de que a equivalência de estágio só é permitido para os alunos que estejam trabalhando na área do curso e matriculados na disciplina estágio obrigatório no período permitido no Plano Pedagógico do curso , não sendo permitido apresentarem contratos de trabalhos anteriores ao período de obrigatoriedade do estágio obrigatório
                         </div>

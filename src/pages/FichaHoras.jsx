@@ -18,6 +18,72 @@ function Retornar(e) {
 }
 
 const FichaHoras = () => {
+    const [tituloDocumento, setTituloDocumento] = React.useState('Declaração de Atividades')
+    const [name, setName] = React.useState('')
+    const [cpf, setCPF] = React.useState('')
+    const [rg, setRG] = React.useState('')
+    const [logradouro, setLogradouro] = React.useState('')
+    const [num, setNumero] = React.useState('')
+    const [Bairro, setBairro] = React.useState('')
+    const [Cidade, setCidade] = React.useState('')
+    const [Estado, setEstado] = React.useState('')
+    const [Curso, setCurso] = React.useState('')
+    const [nomeFantasia, setNomeFantasia] = React.useState('')
+    const [logradouroEmpresa, setLogradouroEmpresa] = React.useState('')
+    const [numEmpresa, setNumeroEmpresa] = React.useState('')
+    const [BairroEmpresa, setBairroEmpresa] = React.useState('')
+    const [CidadeEmpresa, setCidadeEmpresa] = React.useState('')
+    const [EstadoEmpresa, setEstadoEmpresa] = React.useState('')
+    const [representante, setRepresentante] = React.useState('')
+    const [ra, setRA] = React.useState('')
+    const [atividades, setAtividades] = React.useState('')
+    const [idAluno, setIdAluno] = React.useState('')
+
+
+
+
+    React.useEffect(() => {
+        const url = "http://localhost:3001/getuser/"
+        const email = Cookies.get("email")
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({ email }),
+            headers: {
+                'Content-type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(json => {
+                setName(json.savedAluno.name)
+                setCPF(json.savedAluno.cpf)
+                setRG(json.savedAluno.rg)
+                setLogradouro(json.savedAluno.logradouro)
+                setRA(json.savedAluno.RA)
+                setNumero(json.savedAluno.num)
+                setBairro(json.savedAluno.Bairro)
+                setCidade(json.savedAluno.Cidade)
+                setEstado(json.savedAluno.Estado)
+                setCurso(json.savedAluno.Curso)
+                fetch("http://localhost:3001/getempresaByName/", {
+                    method: "POST",
+                    body: JSON.stringify({ nomeFantasia: json.savedAluno.empresa }),
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        setNomeFantasia(json.savedEmpresa.nomeFantasia)
+                        setLogradouroEmpresa(json.savedEmpresa.logradouro)
+                        setNumeroEmpresa(json.savedEmpresa.num)
+                        setBairroEmpresa(json.savedEmpresa.Bairro)
+                        setCidadeEmpresa(json.savedEmpresa.Cidade)
+                        setEstadoEmpresa(json.savedEmpresa.Estado)
+                    })
+                    .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+    })
     return (
         <div className="h-screen">
             <Menu />
@@ -41,12 +107,16 @@ const FichaHoras = () => {
                             <input
                                 className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Nome completo"
+                                value={name}
+                                onChange={e => setName(e.target.value)}
                             />
                             <div>
                                 RA:
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="RA"
+                                    value={ra}
+                                    onChange={e => setRA(e.target.value)}
                                 />
                             </div>
                             <div>
@@ -54,6 +124,8 @@ const FichaHoras = () => {
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="Curso"
+                                    value={Curso}
+                                    onChange={e => setCurso(e.target.value)}
                                 />
                             </div>
                             <div>
@@ -72,6 +144,8 @@ const FichaHoras = () => {
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="Empresa"
+                                    value={nomeFantasia}
+                                    onChange={e => setNomeFantasia(e.target.value)}
                                 />
                             </div>
                             <div>
@@ -98,8 +172,7 @@ const FichaHoras = () => {
                                 <input
                                     className="w-[40%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                     placeholder="Horas"
-                                    value={'240h'}
-                                    disabled
+                                    type="number"
                                 />
                             </div>
                         </div>

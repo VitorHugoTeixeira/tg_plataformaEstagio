@@ -147,9 +147,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Declaração de Atividades
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem Atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -165,9 +162,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Relatório de Atividades
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem Atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -183,9 +177,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Avaliação
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem Atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -201,9 +192,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Termo de Comp. de Estágio
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem Atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -219,9 +207,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Convênio de Con. de Estágio
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem Atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -237,9 +222,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Rescisão de Com. de Estágio
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem Atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -255,9 +237,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Validação de Horas de Estágio
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem Atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -273,9 +252,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Apólice de Seguro
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem Atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -310,9 +286,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Declaração de Atividades
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -328,9 +301,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Relatório de Atividades
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -346,9 +316,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Avaliação de Estágio
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -364,9 +331,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Validação de Horas de Estágio
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -382,9 +346,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Requerimento de Equivalência
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -400,9 +361,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Cópia da carteira de trabalho
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Atualizado no dia 21/12/1999
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -437,9 +395,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Contra. Prestação de Serviço
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -472,9 +427,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Contra. MEI
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -508,9 +460,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Contra. Social da Empresa
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -544,9 +493,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl">
                                     Declaração da Empresa
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />
@@ -579,9 +525,6 @@ const PainelAluno = () => {
                                 <h2 className="font-[Barlow] text-xl text-center">
                                     Notas Fiscais
                                 </h2>
-                                <h3 className="text-md font-thin font=[Barlow]">
-                                    Sem atualizações
-                                </h3>
                             </CardContent>
                             <CardActions className="flex justify-center items-center flex-col">
                                 <Divider className="h-1 text-[#000] font-bold w-full" />

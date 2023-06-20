@@ -18,6 +18,70 @@ function Retornar(e) {
 }
 
 const RelatorioAtividade = () => {
+    const [tituloDocumento, setTituloDocumento] = React.useState('Declaração de Atividades')
+    const [name, setName] = React.useState('')
+    const [cpf, setCPF] = React.useState('')
+    const [rg, setRG] = React.useState('')
+    const [logradouro, setLogradouro] = React.useState('')
+    const [num, setNumero] = React.useState('')
+    const [Bairro, setBairro] = React.useState('')
+    const [Cidade, setCidade] = React.useState('')
+    const [Estado, setEstado] = React.useState('')
+    const [Curso, setCurso] = React.useState('')
+    const [nomeFantasia, setNomeFantasia] = React.useState('')
+    const [logradouroEmpresa, setLogradouroEmpresa] = React.useState('')
+    const [numEmpresa, setNumeroEmpresa] = React.useState('')
+    const [BairroEmpresa, setBairroEmpresa] = React.useState('')
+    const [CidadeEmpresa, setCidadeEmpresa] = React.useState('')
+    const [EstadoEmpresa, setEstadoEmpresa] = React.useState('')
+    const [representante, setRepresentante] = React.useState('')
+    const [funcao, setFuncao] = React.useState('')
+    const [atividades, setAtividades] = React.useState('')
+    const [idAluno, setIdAluno] = React.useState('')
+
+    React.useEffect(() => {
+        const url = "http://localhost:3001/getuser/"
+        const email = Cookies.get("email")
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({ email }),
+            headers: {
+                'Content-type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(json => {
+                setName(json.savedAluno.name)
+                setCPF(json.savedAluno.cpf)
+                setRG(json.savedAluno.rg)
+                setLogradouro(json.savedAluno.logradouro)
+                setNumero(json.savedAluno.num)
+                setBairro(json.savedAluno.Bairro)
+                setCidade(json.savedAluno.Cidade)
+                setEstado(json.savedAluno.Estado)
+                setCurso(json.savedAluno.Curso)
+                fetch("http://localhost:3001/getempresaByName/", {
+                    method: "POST",
+                    body: JSON.stringify({ nomeFantasia: json.savedAluno.empresa }),
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        setNomeFantasia(json.savedEmpresa.nomeFantasia)
+                        setLogradouroEmpresa(json.savedEmpresa.logradouro)
+                        setNumeroEmpresa(json.savedEmpresa.num)
+                        setBairroEmpresa(json.savedEmpresa.Bairro)
+                        setCidadeEmpresa(json.savedEmpresa.Cidade)
+                        setEstadoEmpresa(json.savedEmpresa.Estado)
+                    })
+                    .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+    })
+
+
     return (
         <div className="h-screen">
             <Menu />
@@ -41,32 +105,44 @@ const RelatorioAtividade = () => {
                             <input
                                 className="w-[50%] mr-2 ml-2 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Nome da Empresa"
+                                value={nomeFantasia}
+                                onChange={e => setNomeFantasia(e.target.value)}
                             />
 
                             com sede na
                             <input
                                 className="w-[40%] xl:w-[20%] lg:w-[20%] md:w-[30%] sm:w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Logradouro"
+                                value={logradouroEmpresa}
+                                onChange={e => setLogradouroEmpresa(e.target.value)}
                             />,
                             nº
                             <input
                                 className="w-[20%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Número"
+                                value={numEmpresa}
+                                onChange={e => setNumeroEmpresa(e.target.value)}
                             />
                             , no Bairro
                             <input
                                 className="w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Bairro"
+                                value={BairroEmpresa}
+                                onChange={e => setBairroEmpresa(e.target.value)}
                             />
                             , no Município de
                             <input
                                 className="w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Cidade"
+                                value={CidadeEmpresa}
+                                onChange={e => setCidadeEmpresa(e.target.value)}
                             />,
                             no Estado
                             <input
                                 className="w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Estado"
+                                value={EstadoEmpresa}
+                                onChange={e => setEstadoEmpresa(e.target.value)}
                             />,
                             neste ato representada por
                             <input
@@ -77,38 +153,56 @@ const RelatorioAtividade = () => {
                             <input
                                 className="w-[50%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Nome do Aluno"
+                                value={name}
+                                onChange={e => setName(e.target.value)}
                             /> RG nº
                             <input
                                 className="w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="RG"
+                                value={rg}
+                                onChange={e => setRG(e.target.value)}
                             />, CPF nº
                             <input
                                 className="w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="CPF"
+                                value={cpf}
+                                onChange={e => setCPF(e.target.value)}
                             />, residente à
                             <input
                                 className="w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Logradouro"
+                                value={logradouro}
+                                onChange={e => setLogradouro(e.target.value)}
                             />, nº
                             <input
                                 className="w-[20%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Numero"
+                                value={num}
+                                onChange={e => setNumero(e.target.value)}
                             />, no Bairro
                             <input
                                 className="w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Bairro"
+                                value={Bairro}
+                                onChange={e => setBairro(e.target.value)}
                             />, no Município de
                             <input
                                 className="w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Cidade"
+                                value={Cidade}
+                                onChange={e => setCidade(e.target.value)}
                             />, no Estado de
                             <input
                                 className="w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Estado"
+                                value={Estado}
+                                onChange={e => setEstado(e.target.value)}
                             />, regularmente matriculado no Curso Superior de Tecnologia em
                             <input
                                 className="w-[40%] mr-1 ml-1 focus:shadow-none focus:outline-none border-b-2 border-[#000]"
                                 placeholder="Curso"
+                                value={Curso}
+                                onChange={e => setCurso(e.target.value)}
                             />
                             na Faculdade de Tecnologia de São Roque, localizada no Municipio de São Roque, Estado de São Paulo.
 
